@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div class="login-clean">
+        <form method="post">
+            <center>
+                <h2>Log In to AkademiKe</h2>
+            </center>
+            <!-- <div class="illustration"><i class="icon ion-ios-navigate"></i></div> -->
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm pulse animated" type="text" id="username"
+                    name="username" placeholder="Username" autofocus="" required="">
+            </div>
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" type="password" id="password" name="password"
+                    placeholder="Password">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-secondary btn-block" id="login" data-bs-hover-animate="wobble" type="button">Log
+                    In
+                </button>
+            </div>
+            <a class="forgot" href="forgot_password.html">Forgot your email or password?</a>
+        </form>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+
+    <script type="text/javascript">
+        $('#login').click(function () {
+
+            $.ajax({
+
+                method: "POST",
+                url: "REST_api/auth",
+                processData: false,
+                contentType: "application/json",
+                data: '{ "username": "' + $("#username").val() + '", "password": "' + $("#password").val() + '" }',
+                success: function (r) {
+                    console.log(r);
+
+                    if ($('#username').val() == "Super") {
+                        //code...
+                    } else {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (r) {
+                    // setTimeout(function () {
+                    //     $('[data-bs-hover-animate]').removeClass('animated ' + $('[data-bs-hover-animate]').attr('data-bs-hover-animate'));
+                    // }, 2000)
+                    // $('[data-bs-hover-animate]').addClass('animated ' + $('[data-bs-hover-animate]').attr('data-bs-hover-animate'))
+                    console.log(r)
+                }
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>

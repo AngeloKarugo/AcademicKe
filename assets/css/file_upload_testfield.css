@@ -1,0 +1,18 @@
+.image_upload_holder{
+    opacity: 0.7;
+    background: none;
+}
+
+.upload_btn{
+    margin-top: 15px;
+    border-radius: 8px;
+    width: 70px;
+    background: lightgray;
+}
+
+.img_upload_page_img{
+    width: 200px;
+    height: 200px;
+    background: lightgray;
+    margin-bottom: 5px;
+}

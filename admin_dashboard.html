@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Administrator Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/notifications.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/admin_dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/following.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="assets/fonts/iconicss.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="tl_page_container">
+
+        <div class=" p-3 flex-column " id="page_header">
+            <div class="p-0 d-flex flex-fill justify-content-center " id="site_title">
+                <h1>AcademiKe.</h1>
+            </div>
+            <!-- <div class="p-1 d-flex flex-fill justify-content-center " id="user_profile_page_top">
+                <img id="profile_img_navbar"
+                    class="rounded-circle border justify-content-center img-responsive shadow-sm visible"
+                    style="width: 80px;height: 80px;" loading=" lazy" />
+            </div> -->
+
+            <div class="p-1 d-flex flex-column ">
+                <div class="logged_in_as_page_top justify-content-center d-flex">
+                    <span><small>Logged in as:</small></span>
+                </div>
+
+                <div class="justify-content-center d-flex">
+                    <h3><strong id="username_page_top ">Administrator</strong></h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="tl_content_container">
+            <div id="tab_nav_container" class="sticky-top">
+                <ul class="nav nav-tabs nav-justified " id="tabs_navigation">
+                    <li class="nav-item text-left"><a class="nav-link active text-capitalize text-center" role="tab"
+                            data-toggle="tab" href="#tab-1"
+                            style="/*padding: 8px;*//*width: inherit;*//*margin: -5px;*//*padding-top: 8px;*//*margin-top: 3px;*//*margin-bottom: 0px;*/padding-left: 19px;margin-left: 11px;/*margin-left: 4px;*/margin-top: 3px;"><strong>Unresolved</strong></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-center" id="tab-inactive" role="tab" data-toggle="tab"
+                            href="#tab-2" style="margin-left: 4px;margin-top: 3px;"><strong>Resolved</strong></a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="tab-content" id="tab_content">
+                <div class="tab-pane active" role="tabpanel" id="tab-1">
+                    <div class="unresolved_reports" id="timeline_posts">
+
+                        <div class="report_container">
+                            <div class=" d-flex flex-row " style="scroll-padding-left: 10px;">
+                                <div class="p-1 flex-column " id="tl_profile_img_container"> <img
+                                        class="rounded-circle border img-responsive shadow-sm visible"
+                                        id="profile_img_tl" loading="lazy"> </div>
+                                <div class="p-1 flex-fill ">
+                                    <div class="d-flex p-0 ">
+                                        <table>
+                                            <tr>
+                                                <td colspan="3">username here ∙</td>
+                                                <td>designation here ∙</td>
+                                                <td>Time
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>institution here</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="p-0 ">
+                                        <span>Report Statement</span>
+                                    </div>
+
+                                    <small class="logged_in_as_page_top">responding to:</small>
+                                    <div class="d-flex flex-column justify-content-center p-1 flex-fill"
+                                        id="search_post_comment">
+
+                                        <small class="p-1 logged_in_as_page_top">topic ∙ type</small>
+
+                                        <div class="post_owner_details p-1">
+
+                                            <div class="p-0 reports_post_owner_name_container">
+                                                <span><b> Post Owner </b> ∙ Time Posted</span>
+                                            </div>
+                                            <div class="p-0 reports_post_owner_name_container">
+                                                <span>Designation ∙ Institution</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-2 post_owner_details">
+                                            <span>Post Body</span>
+                                        </div>
+
+                                        <div class="p-1 flex-row d-flex">
+                                            <div class="align-items-start post_metrics_label">
+                                                <span>Post Metrics:</span>
+                                            </div>
+
+                                            <div class="flex-column d-flex">
+                                                <div>
+                                                    <span>x likes</span>
+                                                </div>
+                                                <div>
+                                                    <span>y comments</span>
+                                                </div>
+                                                <div>
+                                                    <span>z shares</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-row d-flex p-1 justify-content-center">
+                                        <div class="p-1">
+                                            <span>Choose action</span>
+                                        </div>
+
+                                        <div class="p-1">
+                                            <select class="form-control-sm" name='action'>
+                                                <option class="form-control-sm" value=''></option>
+                                                <option class="form-control-sm" value='delete'>Resolve</option>
+                                                <option class="form-control-sm" value='delete'>Delete post</option>
+                                                <option class="form-control-sm" value='deactivate'>Deactivate User
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="p-1">
+                                            <button class="btn btn-secondary btn-sm" type='button'
+                                                id="revert_button">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane inactive" role="tabpanel" id="tab-2">
+                    <div class="resolved_reports" id="timeline_posts">
+
+                        <div class="report_container">
+                            <div class="logged_in_as_page_top">
+                                <span>Resolved m ago</span>
+                            </div>
+
+                            <div class="d-flex flex-row " style="scroll-padding-left: 10px;">
+
+
+                                <div class="p-1 flex-column " id="tl_profile_img_container"> <img
+                                        class="rounded-circle border img-responsive shadow-sm visible"
+                                        id="profile_img_tl" loading="lazy"> </div>
+                                <div class="p-1 flex-fill ">
+                                    <div class="d-flex p-0 ">
+                                        <table>
+                                            <tr>
+                                                <td colspan="3">username here ∙</td>
+                                                <td>designation here ∙</td>
+                                                <td>Time
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>institution here</td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="p-0 logged_in_as_page_top">
+                                        <span class="logged_in_as_page_top">Report Statement</span>
+                                    </div>
+
+                                    <small class="logged_in_as_page_top">responding to:</small>
+                                    <div class="d-flex flex-column justify-content-center p-1 flex-fill"
+                                        id="search_post_comment">
+                                        <small class="p-1 logged_in_as_page_top">topic ∙ type</small>
+
+                                        <div class="post_owner_details p-1">
+
+                                            <div class="p-0 reports_post_owner_name_container">
+                                                <span><b> Post Owner </b> ∙ Time Posted</span>
+                                            </div>
+                                            <div class="p-0 reports_post_owner_name_container">
+                                                <span>Designation ∙ Institution</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="p-2 post_owner_details">
+                                            <span>Post Body</span>
+                                        </div>
+
+                                        <div class="p-1 flex-row d-flex">
+                                            <div class="align-items-start post_metrics_label">
+                                                <span>Post Metrics:</span>
+                                            </div>
+
+                                            <div class="flex-column d-flex">
+                                                <div>
+                                                    <span>x likes</span>
+                                                </div>
+                                                <div>
+                                                    <span>y comments</span>
+                                                </div>
+                                                <div>
+                                                    <span>z shares</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-row d-flex p-1 justify-content-center">
+                                        <div class="p-1">
+                                            <span class="logged_in_as_page_top">ACTION TAKEN:</span>
+                                        </div>
+
+                                        <div class="p-1">
+                                            <span>Action</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="p-1 d-flex justify-content-center">
+                                        <button class="btn btn-success btn-sm" type='button'
+                                            id="revert_button">Revert</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--modal window for displaying comments-->
+                <div class="modal fade" id="comment_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                                <h6 class="modal-title">Edit Response</h6><button type="button" class="close"
+                                    data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body" id="modal_comments" style="overflow-y: auto; max-height: 600px;">
+                                <p>The content of your modal.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--modal window for searchbox-->
+                <div class="modal fade" id="search_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                                <input class="form-control sbox" type="text" placeholder="Search..." id="search_input"
+                                    autofocus><button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div style="overflow-y: auto; max-height: 600px;" id="search_autocomplete">
+                                <ul class="list-group autocomplete" style="position:relative;">
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/bootstrap/js/popper.min.js"></script>
+        <script src="assets/js/bs-init.js"></script>
+        <script src="assets/js/reports.js"></script>
+        <!-- <script src="assets/js/script.js"></script> -->
+        <!-- <script src="assets/js/search.js"></script> -->
+        <!-- <script src="assets/js/following.js"></script> -->
+        <script src="assets/js/common_functions.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+.search_container{
+    margin-bottom: 5px;
+}
+
+.institution_designation_container{
+    margin-left: 9px;
+}
+
+.user_container{
+    border-bottom: solid;
+    border-color: silver;
+    border-width: 0.5px;
+}
+
+#next {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.8;
+    background-color: ghostwhite;
+}
+
+#back {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    opacity: 0.8;
+    background-color: ghostwhite;
+}

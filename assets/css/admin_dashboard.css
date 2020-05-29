@@ -1,0 +1,15 @@
+.post_owner_details{
+    border-bottom: solid;
+    border-width: 0.5px;
+    border-color: silver;
+}
+
+.post_metrics_label{
+    margin-right: 3px;
+}
+
+.report_container{
+    border-bottom: solid;
+    border-width: 0.5px;
+    border-color: silver;
+}

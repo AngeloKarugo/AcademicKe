@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+    <div class="login-clean part_1">
+        <form name="create_account_1">
+            <h2 class="sr-only">Create Account 1</h2><label></label>
+
+            <div class="illustration">
+                <h3 class="text-center text-muted">Create Account</h3>
+            </div>
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" id="username" type="text" name="username"
+                    placeholder="Enter Username" required="">
+            </div>
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" id="email" type="email" name="email"
+                    placeholder="e.g. johndoe@pu.ac.ke" required="" data-toggle="tooltip" data-placement="top"
+                    title="Use institution email address">
+            </div>
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" id="institution" type="text"
+                    name="institution" placeholder="e.g. Pwani University" required="" data-toggle="tooltip"
+                    data-placement="top" title="Use institution email address" disabled>
+            </div>
+            <div class="form-group">
+                <select class="browser-default custom-select form-control-sm" id="designation" name='designation'
+                    required="">
+                    <option class="form-control-sm" value="" disable selected>Select your designation</option>
+                    <option class="form-control-sm" value='undergraduate'>Undergraduate Student</option>
+                    <option class="form-control-sm" value='graduate'>Graduate Student</option>
+                    <option class="form-control-sm" value='lecturer'>Lecturer/Researcher</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" id="specialty" type="text" name="specialty"
+                    placeholder="Your field(s) of specialization">
+            </div>
+
+            <div class="form-group d-flex p-0 flex-fill align-items-end">
+                <button class="btn btn-sm text-right ml-auto border rounded" type="button" id="next">
+                    Next &gt;&gt;
+                </button>
+            </div>
+            <a class="forgot" href="login.html">
+                Already got an account? Click here.
+            </a>
+        </form>
+    </div>
+
+    <div class="login-clean part_2">
+        <form name="create_account_2">
+            <h2 class="sr-only">Create Account Final</h2>
+            <div class="illustration">
+                <h3 class="text-center text-muted">Complete Sign-up</h3>
+            </div>
+            <div class="form-group"><input class="border rounded form-control form-control-sm" type="password"
+                    id="password1" name="password1" placeholder="Set Password"><input
+                    class="border rounded form-control form-control-sm" type="password" id="password2" name="password1"
+                    placeholder="Confirm Password"></div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block border rounded" id="create_account" type="button">Create
+                    Account</button>
+                <button class="btn btn-sm border rounded" type="button" id="back">&lt;&lt;
+                    Back</button>
+            </div>
+
+            <a class="forgot" href="login.html">Already got an account? Click here.</a>
+        </form>
+    </div>
+
+    <div class="login-clean part_3">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" id="profile_img_signup_form" name="profile_image" value="Select Profile Picture">
+                <input id="profile_img_signup_submit" value="Upload Profile Picture">
+
+                <button class="btn btn-success btn-block border rounded" id="complete_signup" type="button">Complete
+                    Signup</button>
+            </div>
+
+            <a class="forgot" href="login.html">Already got an account? Click here.</a>
+        </form>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <style>
+        #next {
+            margin-top: 1vh;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.part_2').css({ "display": "none" })
+            $('.part_3').css({ "display": "none" })
+        })
+
+        $('#email').on('change', function () {
+            var email = $("#email").val();
+
+            var domain = email.substr(email.indexOf('@') + 1);
+
+            domain = domain.split('.');
+
+            domain = domain[0];
+
+            switch (domain) {
+                case "pu":
+                    $('#institution').val("Pwani University");
+                    break;
+                case "jkuat":
+                    $('#institution').val("Jomo Kenyatta University of Agriculture and Technology");
+                    break;
+                case "ku":
+                    $('#institution').val("Kenyatta University");
+                    break;
+                case "uonbi":
+                    $('#institution').val("University of Nairobi");
+                    break;
+                case "tukenya":
+                    $('#institution').val("Technical University of Kenya");
+                    break;
+                case "mku":
+                    $('#institution').val("Mount Kenya University");
+                    break;
+                case "aua":
+                    $('#institution').val("Adventist University of Africa");
+                    break;
+                case "africainternational":
+                    $('#institution').val("Africa International University");
+                    break;
+                case "anu":
+                    $('#institution').val("Africa Nazarene University");
+                    break;
+                case "airads":
+                    $('#institution').val("African Institute of Research and Development Studies");
+                    break;
+                case "airtravelcentre":
+                    $('#institution').val("Air Travel and Related Studies Centre");
+                    break;
+                case "alphax":
+                    $('#institution').val("Alphax College");
+                    break;
+                case "chuka":
+                    $('#institution').val("Chuka University");
+                    break;
+                case "cit":
+                    $('#institution').val("Coast Institute of Technology");
+                    break;
+                case "chrm":
+                    $('#institution').val("College of Human Resource Management");
+                    break;
+                case "daystar":
+                    $('#institution').val("Daystar University");
+                    break;
+                case "dkut":
+                    $('#institution').val("Dedan Kimathi University of Technology");
+                    break;
+                case "dimacollege":
+                    $('#institution').val("Dima College");
+                    break;
+                case "easm":
+                    $('#institution').val("East Africa School of Management");
+                    break;
+                case "east":
+                    $('#institution').val("East Africa School of Technology");
+                    break;
+                case "eaics":
+                    $('#institution').val("East African Institute of Certified Studies");
+                    break;
+                case "egerton":
+                    $('#institution').val("Egerton University");
+                    break;
+                case "eati":
+                    $('#institution').val("Eldoret Aviation Training Institute");
+                    break;
+                case "embuni":
+                    $('#institution').val("Embu University College");
+                    break;
+                case "gluk":
+                    $('#institution').val("Great Lakes University of Kisumu");
+                    break;
+                case "git":
+                    $('#institution').val("Gusii Institute of Technology");
+                    break;
+                case "hekima":
+                    $('#institution').val("Hekima University College");
+                    break;
+                case "iat":
+                    $('#institution').val("Institute of Advanced Technology");
+                    break;
+                case "ict":
+                    $('#institution').val("International Centre of Technology");
+                    break;
+                case "iu":
+                    $('#institution').val("International University of Professional Studies");
+                    break;
+                case "iti":
+                    $('#institution').val("Intraglobal Training Institute");
+                    break;
+                case "jooust":
+                    $('#institution').val("Jaramogi Oginga Odinga University of Science and Technology");
+                    break;
+                case "kabarak":
+                    $('#institution').val("Kabarak University");
+                    break;
+                case "kca":
+                    $('#institution').val("Kenya College of Accountancy");
+                    break;
+                case "kheu":
+                    $('#institution').val("Kenya Highlands Evangelical University");
+                    break;
+                case "kias":
+                    $('#institution').val("Kenya Institute of Applied Sciences");
+                    break;
+                case "kibco":
+                    $('#institution').val("Kenya Institute of Business and Counselling Studies");
+                    break;
+                case "kidstudies":
+                    $('#institution').val("Kenya Institute of Development Studies");
+                    break;
+                case "kim":
+                    $('#institution').val("Kenya Institute of Management");
+                    break;
+                case "kips":
+                    $('#institution').val("Kenya Institute of Professional Studies");
+                    break;
+                case "kiswcd":
+                    $('#institution').val("Kenya Institute of Social Work and Community Develoment");
+                    break;
+                case "kmtc":
+                    $('#institution').val("Kenya Medical Training College");
+                    break;
+                case "kemu":
+                    $('#institution').val("Kenya Methodist University");
+                    break;
+                case "ksg":
+                    $('#institution').val("Kenya School of Government");
+                    break;
+                case "ksms":
+                    $('#institution').val("Kenya School of Monetary Studies");
+                    break;
+                case "kttc":
+                    $('#institution').val("Kenya Technical Training College");
+                    break;
+                case "kist":
+                    $('#institution').val("Kiambu Institute of Science and Technology");
+                    break;
+                case "kababiiuniversity":
+                    $('#institution').val("Kababii University College");
+                    break;
+                case "kyuc":
+                    $('#institution').val("Kirinyaga University College");
+                    break;
+                case "kwust":
+                    $('#institution').val("Kiriri University of Science and Technology");
+                    break;
+                case "kisiiuniversity":
+                    $('#institution').val("Kisii University");
+                    break;
+                case "kisunupoly":
+                    $('#institution').val("Kisumu Polytechnic");
+                    break;
+                case "laikipia":
+                    $('#institution').val("Laikipia Univeristy");
+                    break;
+                case "lukenyauniversity":
+                    $('#institution').val("Lukenya Univeristy");
+                    break;
+                case "mmarau":
+                    $('#institution').val("Maasai Mara Univeristy");
+                    break;
+                case "mit":
+                    $('#institution').val("Machakos Institute of Technology");
+                    break;
+                case "machakosuniversity":
+                    $('#institution').val("Machakos University");
+                    break;
+                case "miuc":
+                    $('#institution').val("Maarist International University College");
+                    break;
+                case "maseno":
+                    $('#institution').val("Maseno University");
+                    break;
+                case "mmust":
+                    $('#institution').val("Masinde Muliro University of Science and Technology");
+                    break;
+                case "mu":
+                    $('#institution').val("Moi University");
+                    break;
+                case "mru":
+                    $('#institution').val("Murang'a University");
+                    break;
+                case "pacuniversity":
+                    $('#institution').val("Pan African Christian University");
+                    break;
+                case "piu":
+                    $('#institution').val("Pioneer International University");
+                    break;
+                case "rti":
+                    $('#institution').val("Railway Training Institute");
+                    break;
+                case "riarauniversity":
+                    $('#institution').val("Riara University");
+                    break;
+                case "rvist":
+                    $('#institution').val("Rift Valley Institute of Science and Technology");
+                    break;
+                case "ruc":
+                    $('#institution').val("Rongo University College");
+                    break;
+                case "spu":
+                    $('#institution').val("Saint Pauls University");
+                    break;
+                case "strathmore":
+                    $('#institution').val("Strathmore University");
+                    break;
+                case "ttuc":
+                    $('#institution').val("Taita Taveta University");
+                    break;
+                case "tum":
+                    $('#institution').val("Technical University of Mombasa");
+                    break;
+                case "cuea":
+                    $('#institution').val("Catholic University of Eastern Africa");
+                    break;
+                case "teau":
+                    $('#institution').val("The East African University");
+                    break;
+                case "puea":
+                    $('#institution').val("Presbyterian University of Eastern Africa");
+                    break;
+                case "usiu":
+                    $('#institution').val("United States International University");
+                    break;
+                case "uoeld":
+                    $('#institution').val("University of Eldoret");
+                    break;
+                case "kabianga":
+                    $('#institution').val("University of Kabianga");
+                    break;
+                case "zetech":
+                    $('#institution').val("Zetech University");
+                    break;
+
+                default:
+                    break;
+            }
+
+        })
+
+        $('#create_account').click(function () {
+
+            if (validate_2()) {
+                $.ajax({
+
+                    method: "POST",
+                    url: "REST_api/users",
+                    processData: false,
+                    contentType: "application/json",
+                    data: '{ "username": "' + $("#username").val() + '", "email": "' + $("#email").val() + '",  "designation": "' + $("#designation").val() + '", "institution": "' + $("#institution").val() + '","specialty": "' + $("#specialty").val() + '", "password1": "' + $("#password1").val() + '", "password2": "' + $("#password2").val() + '"}',
+                    success: function (r) {
+                        console.log(r)
+
+                        var res = JSON.parse(r)
+
+                        $('.part_3').css({ "display": "block" })
+
+                        $('.part_2').css({ "display": "none" })
+
+                        $('#profile_img_signup_submit').on('click', function () {
+                            var file_data = $('#profile_img_signup_form').prop('files')[0];
+                            var form_data = new FormData();
+                            form_data.append('file', file_data);
+                            alert(form_data)
+                            $.ajax({
+                                method: 'POST',
+                                url: 'REST_api/profile_image?id=' + res.Id,
+                                processData: false,
+                                dataType: 'text',
+                                cache: 'false',
+                                contentType: false,
+                                data: form_data,
+                                success: function (php_script_response) {
+                                    alert(php_script_response);
+
+                                }
+                            });
+
+                            window.location.href = "users.html";
+                        })
+                    },
+                    error: function (r) {
+                        console.log(r)
+                    }
+
+                });
+
+            }
+
+        })
+
+        $('#back').click(function () {
+            $('.part_1').css({ "display": "block" })
+
+            $('.part_2').css({ "display": "none" })
+        });
+
+        $('#next').click(function () {
+            if (validate()) {
+                $('.part_2').css({ "display": "block" })
+
+                $('.part_1').css({ "display": "none" })
+            }
+
+
+        });
+
+        $(function () {
+            $("[data-toggle = 'tooltip']").tooltip();
+        })
+
+        // Form validation code will come here.
+        function validate() {
+
+            if (document.create_account_1.username.value == "") {
+                alert("Please provide your name");
+                document.create_account_1.username.focus();
+                return false;
+            }
+            if (document.create_account_1.email.value == "") {
+                alert("Please provide your Email");
+                document.create_account_1.email.focus();
+                return false;
+            } else {
+                var email = document.create_account_1.email.value;
+                atpos = email.indexOf("@");
+                dotpos = email.lastIndexOf(".");
+                if (atpos < 1 || (dotpos - atpos < 2)) {
+                    alert("Please enter correct email address")
+                    document.create_account_1.email.focus();
+                    return false;
+                }
+            }
+            if (document.create_account_1.institution.value == "") {
+                alert("Please provide a valid organization Email");
+                document.create_account_1.institution.focus();
+                return false;
+            }
+            if (document.create_account_1.designation.value == "") {
+                alert("Please enter your designation");
+                return false;
+            }
+            if (document.create_account_1.specialty.value == "") {
+                alert("Please enter your field of specialization");
+                return false;
+            }
+
+            return (true);
+        }
+
+        function validate_2() {
+            if ((document.create_account_2.password1.value != document.create_account_2.password2.value) || (document.create_account_2.password1.value == "")) {
+                alert("The entered passwords don't match. Please enter matching passwords");
+                return false;
+            } else if (document.create_account_2.password1.value.length() > 6) {
+                alert("Minimum password length is 6 characters");
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
+</body>
+
+</html>

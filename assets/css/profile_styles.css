@@ -1,0 +1,142 @@
+#new_post_button{
+    margin-right: 3vw;
+    color: limegreen;
+    /* border-color: limegreen; */
+    /* border: solid; */
+    border-radius: 100%;
+}
+
+#edit_profile_btn{
+    margin-right: 0.5vw;
+    color: silver;
+    /* border-color: limegreen; */
+    /* border: solid; */
+    border-radius: 100%;
+}
+
+.update_profile_select{
+    padding: 0px !important;
+}
+
+.fa-plus{
+    margin: 5px;
+}
+
+#tab_content{
+    border-top: solid;
+    border-top-width: 1px;
+    border-top-color: silver;
+    border-radius: 9pt;
+    margin-top: 10px;
+}
+
+.sticky-top{
+    background: white;
+}
+
+#user_info_container{
+    border-bottom: solid;
+    border-color: silver;
+    border-bottom-width: 0.3px;
+}
+
+@media screen and (min-width: 1000px){
+    #new_post_button{
+        font-size: 3vw;
+    }
+
+    #edit_profile_btn{
+        font-size: 3vw;
+    }
+
+    .ui-menu-item{
+        font-size: 1vw !important;
+    }
+
+    #user_profile_page_followers_following{
+        font-size: 0.8vw;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    #new_post_button{
+        font-size: 6vw;
+    }
+
+    #edit_profile_btn{
+        font-size: 6vw;
+    }
+
+    #user_profile_page_followers_following{
+        font-size: 2vw;
+    }
+
+    .ui-menu-item{
+        font-size: 3vw !important;
+    }
+}
+
+#follow_table{
+    margin-top: 2vh;
+}
+
+#user_profile_page_follow_btn {
+    border: solid;
+    border-color: limegreen;
+    border-width: 2px;
+    border-radius: 10%;
+    background: none;
+}
+
+#subject_page_follow_btn {
+    border: solid;
+    border-color: limegreen;
+    border-width: 2px;
+    border-radius: 10%;
+    background: none;
+}
+
+#new_post_textarea{
+    margin-top: 4px;
+    width: 100%;
+}
+
+.profile_image_user_info{
+    width: 40px;
+    height: 40px;
+}
+
+.image_wrapper{
+    position: relative;
+}
+
+#edit_profile_img{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+}
+
+#image_upload_form{
+    margin-bottom: 0px;
+}
+
+.post_file_wrapper{
+    position: relative;
+    overflow: hidden;
+}
+
+.post_file_icon{
+    width: inherit;
+    height: inherit;
+}
+
+.post_file_upload{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 4vw;
+    width: 4vw;
+    opacity: 0;
+}

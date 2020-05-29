@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>project_SN</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/notifications.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/following.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="assets/fonts/iconicss.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="tl_page_container">
+
+        <div class=" p-3 flex-column " id="page_header">
+            <div class="p-0 d-flex flex-fill justify-content-center " id="site_title">
+                <h1>AcademiKe.</h1>
+            </div>
+            <div class="p-1 d-flex flex-fill justify-content-center " id="user_profile_page_top">
+                <img id="profile_img_navbar"
+                    class="rounded-circle border justify-content-center img-responsive shadow-sm visible"
+                    style="width: 80px;height: 80px;" loading=" lazy" />
+            </div>
+
+            <div class="p-1 d-flex flex-column ">
+                <div class="logged_in_as_page_top justify-content-center d-flex">
+                    <span><small>Logged in as:</small></span>
+                </div>
+
+                <div class="justify-content-center d-flex">
+                    <h3><strong id="username_page_top"></strong></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="icon-bar flex-row d-flex  fixed-bottom" id="navbar">
+            <!-- <div class="d-flex p-1 flex-column " id="page_header">
+                <div class="p-1 d-flex flex-fill justify-content-center " id="user_profile_page_top">
+                    <img id="profile_img_navbar" class="rounded-circle border img-responsive shadow-sm visible"
+                        style="width: 30px;height: 30px;" loading=" lazy" />
+                </div>
+
+                <div class="p-1 d-flex flex-fill justify-content-center " id="username_page_top">
+                    <small>username</small>
+                </div>
+            </div> -->
+            <!-- <div class="p-1 " id="user-profile-navbar">
+                <center><img id="profile_img_navbar"
+                        class="rounded-circle border justify-content-center flex-shrink img-responsive shadow-sm visible"
+                        style="width: 50px;height: 50px;" loading=" lazy" /><br>
+                    <small>username</small></center>
+            </div> -->
+
+            <div class="d-flex p-1  justify-content-around flex-fill">
+
+                <div class="p-1 ">
+                    <a href="#"><i class="fa fa-users nav_icon" id="timeline_icon" style="color:limegreen;"></i></a>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-bell-o nav_icon" id="notifications_icon" style="font-weight: 1px; color:grey;">
+                    </button>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-search nav_icon" id="search_icon" style="font-weight: 1px; color:grey;">
+                    </button>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-user-o nav_icon" id="profile_icon" style="font-weight: 1px; color: grey;">
+                    </button>
+                </div>
+
+                <div class="p-0 ">
+                    <div class="dropdown p-1 ml-auto ml-left ">
+                        <button class="fa fa-power-off nav_icon" type="button" data-toggle="dropdown"
+                            id="power_menu_button" aria-haspopup="true" aria-expanded="false"
+                            style="font-weight: 1px; color: grey;"></button>
+
+                        <div class="dropdown-menu dropdown-menu-right options_dropdown_menu"
+                            aria-labelledby="power_menu_button">
+                            <button class="dropdown-item tl_post_options" id="log_out_button">Log out</button>
+
+                            <div class="dropdown-item logout_options">
+                                <button class=" tl_post_options logout_option_button" id="log_out_this_button">This
+                                    Device</button>
+
+                                <button class=" tl_post_options logout_option_button" id="log_out_all_button">All
+                                    Devices</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <a class="p-2 " href="#"><i class="fa fa-bell" style="height: 30px; width: 30px;"></i></a>
+            <a class="p-2 " href="#"><i class="fa fa-search" style="height: 30px; width: 30px;"></i></a>
+            <a class="p-2 " href="#"><i class="fa fa-cog" style="height: 30px; width: 30px;"></i></a> -->
+        </div>
+
+        <div id="tl_content_container">
+            <div id="tab_nav_container" class="sticky-top">
+                <ul class="nav nav-tabs nav-justified " id="tabs_navigation">
+                    <li class="nav-item text-left"><a class="nav-link active text-capitalize text-center" role="tab"
+                            data-toggle="tab" href="#tab-1"
+                            style="/*padding: 8px;*//*width: inherit;*//*margin: -5px;*//*padding-top: 8px;*//*margin-top: 3px;*//*margin-bottom: 0px;*/padding-left: 19px;margin-left: 11px;/*margin-left: 4px;*/margin-top: 3px;">Followers</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-center" id="tab-inactive" role="tab" data-toggle="tab"
+                            href="#tab-2" style="margin-left: 4px;margin-top: 3px;">Following</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-center" id="tab-inactive" role="tab" data-toggle="tab"
+                            href="#tab-3" style="margin-left: 4px;margin-top: 3px;">Subjects</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content" id="tab_content">
+                <div class="tab-pane active" role="tabpanel" id="tab-1">
+
+                    <!-- <div class="conatiner d-flex flex-column notification_container" style="scroll-padding-left: 10px;">
+
+                        <div class="flex-row d-flex">
+                            <div class="notifications_profile_img_container">
+                                <img class="rounded-circle profile_img_notifications profile_image border justify-content-center img-responsive shadow-sm visible"
+                                    loading=" lazy" />
+                            </div>
+                            <div class="follower_name_container align-items-center d-flex">
+                                <span><strong>Angelo Karugo</strong></span>
+                            </div>
+                            <div class="ml-auto ml-left ">
+                                <button class="follow_button">Follow</button>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+                <div class="tab-pane inactive" role="tabpanel" id="tab-2">
+                    <!-- <div class="p-1 d-flex flex-fill justify-content-center ">
+                        <h3><strong>Notifications</strong></h3>
+                    </div>
+                    <div class="conatiner d-flex flex-column " id="notification_container"
+                        style="scroll-padding-left: 10px;">
+                        <div class="notification_header_container">
+                            <span>Angelo Commented on your post:</span>
+                        </div>
+
+                        <div class="notification_post_container">
+                            <div class="post_body_container">
+                                <span>Post body goes here</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="conatiner d-flex flex-column notification_container" style="scroll-padding-left: 10px;">
+
+                        <div class="flex-row d-flex">
+                            <div class="notifications_profile_img_container">
+                                <img class="rounded-circle profile_img_notifications border justify-content-center img-responsive shadow-sm visible"
+                                    loading=" lazy" />
+                            </div>
+                            <div class="follower_name_container align-items-center d-flex">
+                                <span>Angelo is following your posts</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="tab-pane" role="tabpanel" id="tab-3">
+                    <p>Content for tab 3.</p>
+                </div>
+            </div>
+
+            <!--modal window for displaying comments-->
+            <div class="modal fade" id="comment_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                            <h6 class="modal-title">Edit Response</h6><button type="button" class="close"
+                                data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body" id="modal_comments" style="overflow-y: auto; max-height: 600px;">
+                            <p>The content of your modal.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--modal window for searchbox-->
+            <div class="modal fade" id="search_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                            <input class="form-control sbox" type="text" placeholder="Search..." id="search_input"
+                                autofocus><button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div style="overflow-y: auto; max-height: 600px;" id="search_autocomplete">
+                            <ul class="list-group autocomplete" style="position:relative;">
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap/js/popper.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <!-- <script src="assets/js/script.js"></script> -->
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/following.js"></script>
+    <script src="assets/js/common_functions.js"></script>
+</body>
+
+</html>

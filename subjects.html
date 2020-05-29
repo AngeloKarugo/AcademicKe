@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>project_SN</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/following.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/users.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/notifications.css" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="assets/fonts/iconicss.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css"> -->
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/Login-Form-Clean.css"> -->
+    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
+</head>
+
+<body>
+    <div class="container-fluid" id="tl_page_container">
+
+        <div class=" p-3 flex-column " id="page_header">
+            <div class="p-0 d-flex flex-fill justify-content-center " id="site_title">
+                <h1>AcademiKe.</h1>
+            </div>
+            <div class="p-1 d-flex flex-fill justify-content-center " id="user_profile_page_top">
+                <img id="profile_img_navbar"
+                    class="rounded-circle border justify-content-center img-responsive shadow-sm visible"
+                    style="width: 80px;height: 80px;" loading=" lazy" />
+            </div>
+
+            <div class="p-1 d-flex flex-column ">
+                <div class="logged_in_as_page_top justify-content-center d-flex">
+                    <span><small>Logged in as:</small></span>
+                </div>
+
+                <div class="justify-content-center d-flex">
+                    <h3><strong id="username_page_top"></strong></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="icon-bar flex-row d-flex  fixed-bottom" id="navbar">
+            <!-- <div class="d-flex p-1 flex-column " id="page_header">
+                <div class="p-1 d-flex flex-fill justify-content-center " id="user_profile_page_top">
+                    <img id="profile_img_navbar" class="rounded-circle border img-responsive shadow-sm visible"
+                        style="width: 30px;height: 30px;" loading=" lazy" />
+                </div>
+
+                <div class="p-1 d-flex flex-fill justify-content-center " id="username_page_top">
+                    <small>username</small>
+                </div>
+            </div> -->
+            <!-- <div class="p-1 " id="user-profile-navbar">
+                <center><img id="profile_img_navbar"
+                        class="rounded-circle border justify-content-center flex-shrink img-responsive shadow-sm visible"
+                        style="width: 50px;height: 50px;" loading=" lazy" /><br>
+                    <small>username</small></center>
+            </div> -->
+
+            <!-- <div class="d-flex p-1  justify-content-around flex-fill">
+
+                <div class="p-1 ">
+                    <a href="#"><i class="fa fa-users nav_icon" id="timeline_icon" style="color:limegreen;"></i></a>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-bell-o nav_icon" id="notifications_icon" style="font-weight: 1px; color:grey;">
+                    </button>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-search nav_icon" id="search_icon" style="font-weight: 1px; color:grey;">
+                    </button>
+                </div>
+
+                <div class="p-1 ">
+                    <button class="fa fa-user-o nav_icon" id="profile_icon" style="font-weight: 1px; color: grey;">
+                    </button>
+                </div>
+            </div> -->
+
+            <!-- <a class="p-2 " href="#"><i class="fa fa-bell" style="height: 30px; width: 30px;"></i></a>
+            <a class="p-2 " href="#"><i class="fa fa-search" style="height: 30px; width: 30px;"></i></a>
+            <a class="p-2 " href="#"><i class="fa fa-cog" style="height: 30px; width: 30px;"></i></a> -->
+        </div>
+
+        <div id="tl_content_container">
+
+            <div class="tab-content" id="tab_content">
+                <div class="p-1 d-flex flex-column justify-content-center ">
+                    <div class="d-flex justify-content-center">
+                        <h3 class=""><strong>Subjects</strong></h3>
+                    </div>
+                    <div class="d-flex justify-content-center"><small>Follow some subjects to see all posts,
+                            questions and articles on them</small>
+                    </div>
+
+                </div>
+                <div>
+                    <div class="search_container" style="position: sticky-top; width: 100%; background: white;">
+
+                        <div>
+                            <input class="form-control flex-grow-1 sbox" type="text" placeholder="Search..."
+                                id="search_input" autofocus>
+                        </div>
+                    </div>
+
+                    <div style="overflow-y: auto; max-height: 600px;" id="search_autocomplete">
+                        <ul class="list-group autocomplete" style="position:relative;">
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="conatiner d-flex flex-column style=" scroll-padding-left: 10px;" id="users_page">
+
+                    <!-- <div class="flex-row p-1 d-flex align-items-start w-100 user_container">
+                        <div class="notifications_profile_img_container">
+                            <img class="rounded-circle profile_img_notifications profile_image border justify-content-center img-responsive shadow-sm visible"
+                                loading=" lazy" />
+                        </div>
+
+
+                        <div class="flex-row institution_designation_container">
+                            <div class=" flex-shrink d-flex">
+                                <span><strong>Angelo Karugo</strong></span>
+                            </div>
+                            <div class="follower_designation_container  d-flex">
+                                <span>Undergraduate</span>
+                            </div>
+                            <div class="follower_institution_container  d-flex">
+                                <span>Pwani University</span>
+                            </div>
+                        </div>
+
+                        <div class="ml-auto ml-left align-self-center">
+                            <button class="follow_button">Follow</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <button class="btn btn-sm text-right ml-auto border rounded" type="button" id="back"
+                onclick="window.location.href = 'users.html'">
+                &lt;&lt;
+                Back
+            </button>
+
+            <button class="btn btn-sm text-right ml-auto border rounded" type="button" id="next"
+                onclick="window.location.href = 'index.html'">
+                Next &gt;&gt;
+            </button>
+
+            <!--modal window for displaying comments-->
+            <!-- <div class="modal fade" id="comment_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                            <h6 class="modal-title">Edit Response</h6><button type="button" class="close"
+                                data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body" id="modal_comments" style="overflow-y: auto; max-height: 600px;">
+                            <p>The content of your modal.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+            <!--modal window for searchbox-->
+            <!-- <div class="modal fade" id="search_modal" data-keyboard="true" role="dialog" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="position: sticky-top; width: 100%; background: white;">
+                            <i class="fa fa-search" style="margin-right: 5px; padding-top: 5px;"></i><input
+                                class="form-control sbox" type="text" placeholder="Search..." id="search_input"
+                                autofocus><button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body" style="overflow-y: auto; max-height: 600px;" id="search_autocomplete">
+                            <ul class="list-group autocomplete" style="position:relative;">
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap/js/popper.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <!-- <script src="assets/js/script.js"></script> -->
+    <!-- <script src="assets/js/search.js"></script> -->
+    <!-- <script src="assets/js/users.js"></script> -->
+    <script src="assets/js/subject_list.js"></script>
+    <!-- <script src="assets/js/notifications.js"></script> -->
+    <script src="assets/js/common_functions.js"></script>
+
+</body>
+
+</html>
