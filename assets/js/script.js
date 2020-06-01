@@ -34,44 +34,7 @@ $.ajax({
 
             //handler for logout button
             $('#log_out_button').click(function () {
-
-                $('.logout_option_button').css('display', 'inline-block');
-
-                $('#log_out_this_button').click(function () {
-                    $.ajax({
-                        method: "DELETE",
-                        url: "REST_api/auth",
-                        processData: false,
-                        contentType: "application/json",
-                        data: '',
-                        success: function (r) {
-                            console.log(r);
-
-                            window.location.href = "login.html";
-                        },
-                        error: function (r) {
-                            console.log(r);
-                        }
-                    })
-                });
-
-                $('#log_out_all_button').click(function () {
-                    $.ajax({
-                        method: "DELETE",
-                        url: "REST_api/auth?all=1",
-                        processData: false,
-                        contentType: "application/json",
-                        data: '',
-                        success: function (r) {
-                            console.log(r);
-
-                            window.location.href = "login.html";
-                        },
-                        error: function (r) {
-                            console.log(r);
-                        }
-                    })
-                })
+                logout();
             })
 
             $(document).ready(function () {
