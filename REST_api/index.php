@@ -1659,7 +1659,7 @@
                 //creating a notification
                 if ($liker_id != $post_owner_id) {
                     
-                    $db -> query ('INSERT into notifications values (\'\', 1, :receiver, :sender, :post_id, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $liker_id, ':post_id' => $post_id));
+                    $db -> query ('INSERT into notifications values (\'\', 1, :receiver, :sender, :post_id, \'\' 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $liker_id, ':post_id' => $post_id));
                 }
                 
                 $is_liked = TRUE;
@@ -1674,6 +1674,8 @@
 				$db -> query('UPDATE posts set likes = likes - 1 where id = :post_id', array(':post_id' => $post_id));
 
                 $db -> query('DELETE from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' =>$post_id, ':user_id' => $liker_id));
+
+                $db -> query('DELETE from notifications where type = 1 and sender = :sender and receiver = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
                 
                 $is_liked = FALSE;
             }
@@ -1786,12 +1788,15 @@
                         # code...
                         $db -> query('INSERT into followers values(\'\', :user_id, :follower_id)', array(':user_id' => $user_id, ':follower_id' => $follower_id));
 
-                        $db -> query ('INSERT into notifications values (\'\', 7, :receiver, :sender, \'\', 0, unix_timestamp())', array(':receiver' => $user_id, ':sender' => $follower_id));
+                        $db -> query ('INSERT into notifications values (\'\', 7, :receiver, :sender, \'\', \'\', 0, unix_timestamp())', array(':receiver' => $user_id, ':sender' => $follower_id));
     
                         $isFollowing = True;
                     } else {
     
                         $db -> query('DELETE from followers where user_id = :user_id and follower_id = :follower_id', array(':user_id' => $user_id, ':follower_id' => $follower_id));
+
+                        $db -> query('DELETE from notifications where type = 7 and sender = :sender and receiver = :receiver', array(':sender' => $user_id, ':receiver' => $post_owner_id));
+
                         $isFollowing = False;
                     }
                 } else {
@@ -1842,7 +1847,7 @@
                     //creating a notification
                     if($user_id != $post_owner_id){
 
-                        $db -> query ('INSERT into notifications values (\'\', 3, :receiver, :sender, :post_id, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id));
+                        $db -> query ('INSERT into notifications values (\'\', 3, :receiver, :sender, :post_id, \'\', 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id));
                     }
 
                     $is_shared = True;
@@ -1850,6 +1855,8 @@
                     $db -> query('UPDATE posts set shares = shares - 1 where id = :post_id', array(':post_id' => $post_id));
     
                     $db -> query('DELETE from shared_posts where post_id = :post_id and user_id = :user_id', array(':post_id' =>$post_id, ':user_id' => $user_id));
+
+                    $db -> query('DELETE from notifications where type = 3 and sender = :sender and receiver = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
                     
                 }
             }
@@ -1885,7 +1892,9 @@
                 //create a notification
                 if ($user_id != $post_owner_id){
 
-                    $db -> query ('INSERT into notifications values (\'\', 2, :receiver, :sender, :post_id, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id));
+                    $comment_id = $db -> query ('SELECT id from comments where user_id = :user_id order by id desc LIMIT 1', array(':usr_id' => $user_id))[0]['id'];
+
+                    $db -> query ('INSERT into notifications values (\'\', 2, :receiver, :sender, :post_id, :comment_id, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id, ':comment_id' => $comment_id));
                 }
 
                 echo 'Comment posted: '.$comment_body;
@@ -2011,6 +2020,8 @@
             $db -> query ('DELETE from comment_ratings where comment_id = :id', array(':id' => $_GET['comment_id']));
 
             $db -> query ('UPDATE posts set comments = comments - 1 where id = :id', array(':id' => $post_id));
+
+            $db -> query('DELETE from notifications where comment_id = :comment_id', array(':comment_id' => $_GET['comment_id']));
 
             echo 'comment deleted';
         }
