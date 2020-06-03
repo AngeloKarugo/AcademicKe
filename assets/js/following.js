@@ -36,6 +36,8 @@ $.ajax({
 
             var user_id = details.UserId;
 
+            localStorage.setItem('user_id', user_id);
+
             $('#profile_icon').click(function () {
                 window.location.href = 'profile1.php?username=' + details.Username + ''
             })
@@ -83,6 +85,8 @@ $(document).ready(function () {
 
             var followers = JSON.parse(r || "{}")
             console.log(followers);
+
+            var user_id = localStorage.getItem('user_id');
 
             if (followers.length > 0) {
                 $.each(followers, function (index) {
@@ -265,6 +269,8 @@ $(document).ready(function () {
 
             var followers = JSON.parse(r || "{}")
             console.log(followers);
+
+            var user_id = localStorage.getItem('user_id');
 
             if (followers.length > 0) {
                 $.each(followers, function (index) {

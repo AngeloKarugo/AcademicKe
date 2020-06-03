@@ -1646,7 +1646,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             //creating a notification
             if ($liker_id != $post_owner_id) {
 
-                $db->query('INSERT into notifications values (\'\', 1, :receiver, :sender, :post_id, \'\' 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $liker_id, ':post_id' => $post_id));
+                $db->query('INSERT into notifications values (\'\', 1, :receiver, :sender, :post_id, null, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $liker_id, ':post_id' => $post_id));
             }
 
             $is_liked = TRUE;
@@ -1662,7 +1662,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $db->query('DELETE from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' => $post_id, ':user_id' => $liker_id));
 
-            $db->query('DELETE from notifications where type = 1 and sender = :sender and receiver = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
+            $db->query('DELETE from notifications where type = 1 and sender_id = :sender and receiver_id = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
 
             $is_liked = FALSE;
         }
@@ -1793,14 +1793,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     # code...
                     $db->query('INSERT into followers values(\'\', :user_id, :follower_id)', array(':user_id' => $user_id, ':follower_id' => $follower_id));
 
-                    $db->query('INSERT into notifications values (\'\', 7, :receiver, :sender, \'\', \'\', 0, unix_timestamp())', array(':receiver' => $user_id, ':sender' => $follower_id));
+                    $db->query('INSERT into notifications values (\'\', 7, :receiver, :sender, \'\', null, 0, unix_timestamp())', array(':receiver' => $user_id, ':sender' => $follower_id));
 
                     $isFollowing = True;
                 } else {
 
                     $db->query('DELETE from followers where user_id = :user_id and follower_id = :follower_id', array(':user_id' => $user_id, ':follower_id' => $follower_id));
 
-                    $db->query('DELETE from notifications where type = 7 and sender = :sender and receiver = :receiver', array(':sender' => $user_id, ':receiver' => $post_owner_id));
+                    $db->query('DELETE from notifications where type = 7 and sender_id = :sender and receiver_id = :receiver', array(':sender' => $follower_id, ':receiver' => $user_id));
 
                     $isFollowing = False;
                 }
@@ -1849,7 +1849,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 //creating a notification
                 if ($user_id != $post_owner_id) {
 
-                    $db->query('INSERT into notifications values (\'\', 3, :receiver, :sender, :post_id, \'\', 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id));
+                    $db->query('INSERT into notifications values (\'\', 3, :receiver, :sender, :post_id, null, 0, unix_timestamp())', array(':receiver' => $post_owner_id, ':sender' => $user_id, ':post_id' => $post_id));
                 }
 
                 $is_shared = True;
@@ -1858,7 +1858,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                 $db->query('DELETE from shared_posts where post_id = :post_id and user_id = :user_id', array(':post_id' => $post_id, ':user_id' => $user_id));
 
-                $db->query('DELETE from notifications where type = 3 and sender = :sender and receiver = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
+                $db->query('DELETE from notifications where type = 3 and sender_id = :sender and receiver_id = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
             }
         }
 
