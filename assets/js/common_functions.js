@@ -248,7 +248,7 @@ function validate_pdf_upload(file_type) {
         $('#pdf_feedback').html('');
         $('#submit_post').removeAttr('disabled');
 
-        var extensions = new Array("pdf", "xls");
+        var extensions = new Array("pdf", "xls", "xlsx");
 
         for (let i = 0; i < files.length; i++) {
 
