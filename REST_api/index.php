@@ -238,17 +238,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $profile_img = $db->query('SELECT profileimg from users where id = :id', array(':id' => $user_id))[0]['profileimg'];
 
         $following_posts = $db->query('SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, followers where posts.user_id = followers.user_id and followers.follower_id = :user_id and posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
-            /* posts by users who the logged in user follows */ 
-            union ALL
-            /* posts shared by users who the logged in user follows */ 
-            SELECT shared_posts.post_id as id, posts.body, posts.likes, posts.comments, posts.shares, shared_posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, shared_posts, followers where shared_posts.user_id = followers.user_id and followers.follower_id = :user_id and shared_posts.post_id = posts.id and shared_posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
-            UNION ALL
-            /* posts by the logged in user */ 
-            SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users WHERE posts.user_id = users.id and users.id = :user_id and posts.type_id = post_types.id and posts.topic_id = topics.id
-            UNION ALL
-            /* posts shared by the logged in user */
-            SELECT shared_posts.post_id as id, posts.body, posts.likes, posts.comments, posts.shares, shared_posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, shared_posts where shared_posts.user_id = :user_id and shared_posts.post_id = posts.id and shared_posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
-            ORDER BY posted_at desc', array(':user_id' => $user_id));
+        /* posts by users who the logged in user follows */ 
+        union ALL
+        /* posts shared by users who the logged in user follows */ 
+        SELECT shared_posts.post_id as id, posts.body, posts.likes, posts.comments, posts.shares, shared_posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, shared_posts, followers where shared_posts.user_id = followers.user_id and followers.follower_id = :user_id and shared_posts.post_id = posts.id and shared_posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
+        UNION ALL
+        /* posts by the logged in user */ 
+        SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users WHERE posts.user_id = users.id and users.id = :user_id and posts.type_id = post_types.id and posts.topic_id = topics.id
+        UNION ALL
+        /* posts shared by the logged in user */
+        SELECT shared_posts.post_id as id, posts.body, posts.likes, posts.comments, posts.shares, shared_posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, shared_posts where shared_posts.user_id = :user_id and shared_posts.post_id = posts.id and shared_posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
+        ORDER BY posted_at desc', array(':user_id' => $user_id));
 
         $response = "[";
 
@@ -281,6 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $response .= '"UserId": "' . $user_id . '",';
                 $response .= '"Username": "' . $username . '",';
                 $response .= '"ProfileImg": "' . $profile_img . '",';
+                $response .= '"Category": "timeline",';
 
                 // post written by the user that has not been shared by anyone
                 if (($post_owner_id == $user_id) && ($post['user_id'] == $user_id)) {
@@ -317,7 +318,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= '"SharedById": "",';
                     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
                     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                    $response .= '"Category": "timeline",';
                     $response .= '"PostedAt": ' . $post['posted_at'] . '';
                     $response .= "}";
                     $response .= ",";
@@ -360,7 +360,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= '"SharedById": "",';
                     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
                     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                    $response .= '"Category": "timeline",';
                     $response .= '"PostedAt": ' . $post['posted_at'] . '';
                     $response .= "}";
                     $response .= ",";
@@ -403,7 +402,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= '"SharedById": "' . $user_id . '",';
                     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
                     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                    $response .= '"Category": "timeline",';
                     $response .= '"PostedAt": ' . $post['posted_at'] . '';
                     $response .= "}";
                     $response .= ",";
@@ -446,7 +444,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= '"SharedById": "' . $post['user_id'] . '",';
                     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
                     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                    $response .= '"Category": "timeline",';
                     $response .= '"PostedAt": ' . $post['posted_at'] . '';
                     $response .= "}";
                     $response .= ",";
@@ -489,7 +486,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= '"SharedById": "' . $post['user_id'] . '",';
                     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
                     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                    $response .= '"Category": "timeline",';
                     $response .= '"PostedAt": ' . $post['posted_at'] . '';
                     $response .= "}";
                     $response .= ",";

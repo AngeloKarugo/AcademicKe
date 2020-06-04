@@ -153,7 +153,9 @@ function time_conversion(time) {
 
     const months = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    const actual_date = new Date(time * 1000);
+    const days = ["", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+
+    const actual_date = new Date(time * 1000); //convert timestamp to date
 
     var date_difference = current_date - actual_date;
 
@@ -170,17 +172,21 @@ function time_conversion(time) {
     // console.log(date_difference_in_hours);
 
     if (date_difference_in_seconds < 60) {
+        //if less than 1 minute ago
         time = date_difference_in_seconds + 'sec';
-    } else if ((date_difference_in_seconds >= 60) && (date_difference_in_minutes < 60)) {
+    } else if ((date_difference_in_minutes >= 1) && (date_difference_in_minutes < 60)) {
+        //if between 1 minute and 1 hour ago
         time = date_difference_in_minutes + 'min';
-    } else if ((date_difference_in_minutes >= 60) && (date_difference_in_hours < 24)) {
+    } else if ((date_difference_in_hours >= 1) && (date_difference_in_hours < 24)) {
+        //if date between 1 hour and 1 day ago
         time = date_difference_in_hours + 'h';
-    } else if ((date_difference_in_hours >= 24) && (date_difference_in_days < 7)) {
-        time = date_difference_in_days + 'd';
-    } else if ((date_difference_in_days > 7) && (date_difference_in_years < 1)) {
-        time = months[actual_date.getUTCMonth()] + ', ' + actual_date.getUTCDay();
+    } else if ((date_difference_in_days >= 1) && (date_difference_in_days < 7)) {
+        //if date between 1 day and 7 days ago
+        time = days[date_difference_in_days];
+    } else if ((date_difference_in_days >= 7) && (date_difference_in_years < 1)) {
+        time = months[actual_date.getUTCMonth()] + ', ' + actual_date.getDate();
     } else if (date_difference_in_years > 1) {
-        time = actual_date.getUTCFullYear() + ', ' + months[actual_date.getUTCMonth()] + ' ' + actual_date.getUTCDay();
+        time = actual_date.getFullYear() + ', ' + months[actual_date.getMonth()] + ' ' + actual_date.getDate();
     }
 
     return time;

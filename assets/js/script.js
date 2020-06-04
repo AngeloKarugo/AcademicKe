@@ -63,14 +63,30 @@ $.ajax({
                         // console.log(r, username);
 
                         if (posts.length > 1) {
+                            count_tl = 0;
+                            count_tp = 0;
+
                             $.each(posts, function (index) {
 
                                 // console.log(time_conversion(posts[index].PostedAt));
 
                                 // posts[index].PostedAt = time_conversion(posts[index].PostedAt);
 
+                                // console.log(posts[index].Category);
+
+                                // console.log("log test");
+
+
+
                                 if (posts[index].Category == "timeline") {
+
+
+
+                                    count_tl++;
+
                                     if (posts[index].SharedByName.length > 0) {
+
+                                        // console.log("shared: " + posts[index].PostBody + posts[index].SharedByName);
 
                                         $('#tab-1').html(
                                             $('#tab-1').html() + '<div id="shared_by" onclick = "window.location.href = \'profile1.php?username=' + posts[index].SharedByName + '\'"><small>' + posts[index].SharedByName + ' rePosted</small></div><div class="conatiner d-flex flex-row" id="timeline_posts"style="scroll-padding-left: 10px;"><div class="p-1 flex-column" id="tl_profile_img_container"> <img ' + display_profile_image(posts[index].PostedByImg) + ' class= "profile_image rounded-circle border img-responsive shadow-sm visible" id = "profile_img_tl' + index + '" loading = "lazy" > </div > <div class="p-1 flex-fill post_body_container"> <div class="d-flex p-0"> <table> <tr> <td colspan="2"><strong onclick = "window.location.href = \'profile1.php?username=' + posts[index].PostedByName + '\'">' + posts[index].PostedByName + '</strong>  ∙  ' + posts[index].PostedByDesignation + ' ∙ ' + time_conversion(posts[index].PostedAt) + '</td></tr><tr><td>' + posts[index].PostedByInstitution + '</td></tr></table><div class="three_dots ml-auto ml-left"><div class="dropdown p-1  "><button class="fa fa-chevron-down post_options_btn drop" type="button" data-toggle="dropdown"id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right options_dropdown_menu" aria-labelledby="dropdownMenuButton" data-shared_post_options = "' + posts[index].PostId + '"></div></div></div></div><div class="d-flex p-0"><div class="p-1" id="tl_post_topic"><small> ' + posts[index].PostTopic + ' </small></div><div class="p-1" id="tl_post_type"><small>' + posts[index].PostType + '</small></div> </div> <div class="p-0"><span>' + posts[index].PostBody + '</span><div data-post_files = "' + posts[index].PostId + '"></div><div class="d-flex p-1 flex-fill justify-content-around"><div class="p-1"><button class="post_icon" id="like_btn" data-id="' + posts[index].PostId + '"><i class="fa fa-check-square-o"></i><span><small>  ' + posts[index].PostLikes + '</small></span></button></div><div class="p-1"><button class="post_icon" id="comment_btn" data-post_id="' + posts[index].PostId + '"><i class="fa fa-comment-o"></i><span ><small>  ' + posts[index].PostComments + '</small></span></button></div><div class="p-1"><button class="post_icon" id="share_btn" data-share_post_id = "' + posts[index].PostId + '"><i class="fa fa-share-alt"></i><span><small>  ' + posts[index].PostShares + '</small></span></button></div></div></div></div></div>'
@@ -88,6 +104,9 @@ $.ajax({
                                         }
 
                                     } else {
+
+                                        // console.log("unshared: " + posts[index].PostBody + posts[index].PostedByName);
+
                                         $('#tab-1').html(
                                             $('#tab-1').html() + '<div class="conatiner d-flex flex-row" id="timeline_posts"style="scroll-padding-left: 10px;"><div class="p-1 flex-column" id="tl_profile_img_container"> <img ' + display_profile_image(posts[index].PostedByImg) + ' class= "profile_image rounded-circle border img-responsive shadow-sm visible" id = "profile_img_tl' + index + '" loading = "lazy" > </div > <div class="p-1 flex-fill post_body_container"> <div class="d-flex p-0"> <table> <tr> <td colspan="2"><strong onclick = "window.location.href = \'profile1.php?username=' + posts[index].PostedByName + '\'">' + posts[index].PostedByName + '</strong>  ∙  ' + posts[index].PostedByDesignation + ' ∙ ' + time_conversion(posts[index].PostedAt) + '</tr><tr><td>' + posts[index].PostedByInstitution + '</td></tr></table><div class="three_dots ml-auto ml-left "><div class="dropdown p-1 "><button class="fa fa-chevron-down post_options_btn drop" type="button" data-toggle="dropdown"id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right options_dropdown_menu" aria-labelledby="dropdownMenuButton" data-post_options = "' + posts[index].PostId + '"></div></div></div></div><div class="d-flex p-0"><div class="p-1" id="tl_post_topic"><small> ' + posts[index].PostTopic + ' </small></div><div class="p-1" id="tl_post_type"><small>' + posts[index].PostType + '</small></div> </div> <div class="p-0"><span>' + posts[index].PostBody + '</span><div data-post_files = "' + posts[index].PostId + '"></div><div class="d-flex p-1 flex-fill justify-content-around"><div class="p-1"><button class="post_icon" id="like_btn" data-id="' + posts[index].PostId + '"><i class="fa fa-check-square-o " ></i><span><small>  ' + posts[index].PostLikes + '</small></span></button></div><div class="p-1"><button class="post_icon" id="comment_btn" data-post_id="' + posts[index].PostId + '"><i class="fa fa-comment-o " ></i><span><small>  ' + posts[index].PostComments + '</small></span></button></div><div class="p-1"><button class="post_icon"><button class="post_icon" id="share_btn" data-share_post_id = "' + posts[index].PostId + '"><i class="fa fa-share-alt " ></i><span><small>  ' + posts[index].PostShares + '</small></span></button></div></div></div></div></div>'
                                         );
@@ -107,6 +126,10 @@ $.ajax({
                                     }
                                     file_finder('post_files', posts[index].PostId);
                                 } else {
+
+                                    // console.log("subject in tab 1: " + posts[index].PostBody + posts[index].PostedByName);
+                                    count_tp++;
+
                                     $('#tab-2').html(
                                         $('#tab-2').html() + '<div class="conatiner d-flex flex-row" id="timeline_posts"style="scroll-padding-left: 10px;"><div class="p-1 flex-column" id="tl_profile_img_container"> <img ' + display_profile_image(posts[index].PostedByImg) + ' class= "profile_image rounded-circle border img-responsive shadow-sm visible" id = "profile_img_tl' + index + '" loading = "lazy" > </div > <div class="p-1 flex-fill post_body_container"> <div class="d-flex p-0"> <table> <tr> <td colspan="2"><strong onclick = "window.location.href = \'profile1.php?username=' + posts[index].PostedByName + '\'">' + posts[index].PostedByName + '</strong>  ∙  ' + posts[index].PostedByDesignation + ' ∙ ' + time_conversion(posts[index].PostedAt) + '</tr><tr><td>' + posts[index].PostedByInstitution + '</td></tr></table><div class="three_dots ml-auto ml-left "><div class="dropdown p-1 "><button class="fa fa-chevron-down post_options_btn drop" type="button" data-toggle="dropdown"id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right options_dropdown_menu" aria-labelledby="dropdownMenuButton" data-post_options = "' + posts[index].PostId + '"></div></div></div></div><div class="d-flex p-0"><div class="p-1" id="tl_post_topic"><small> ' + posts[index].PostTopic + ' </small></div><div class="p-1" id="tl_post_type"><small>' + posts[index].PostType + '</small></div> </div> <div class="p-0"><span>' + posts[index].PostBody + '</span><div data-topic_post_files = "' + posts[index].PostId + '"></div><div class="d-flex p-1 flex-fill justify-content-around"><div class="p-1"><button class="post_icon" id="like_btn" data-id="' + posts[index].PostId + '"><i class="fa fa-check-square-o " ></i><span><small>  ' + posts[index].PostLikes + '</small></span></button></div><div class="p-1"><button class="post_icon" id="comment_btn" data-post_id="' + posts[index].PostId + '"><i class="fa fa-comment-o " ></i><span><small>  ' + posts[index].PostComments + '</small></span></button></div><div class="p-1"><button class="post_icon"><button class="post_icon" id="share_btn" data-share_post_id = "' + posts[index].PostId + '"><i class="fa fa-share-alt " ></i><span><small>  ' + posts[index].PostShares + '</small></span></button></div></div></div></div></div>'
                                     );
@@ -126,6 +149,9 @@ $.ajax({
 
                             })
                         }
+
+                        console.log("timeline: " + count_tl);
+                        console.log("topic: " + count_tp);
 
                         //handler for deleting posts
                         $('[data-delete_post]').click(function () {

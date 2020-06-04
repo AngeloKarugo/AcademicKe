@@ -1198,6 +1198,8 @@ function re_array_files(&$post_files)
                                     //posting a response
                                     $('#post_comment_btn').click(function() {
 
+                                        var post_id = $(this).attr('data-comment_post_id');
+
                                         $.ajax({
                                             method: "GET",
                                             url: "REST_api/user",
@@ -1217,7 +1219,7 @@ function re_array_files(&$post_files)
 
                                                         $.ajax({
                                                             method: "POST",
-                                                            url: "REST_api/comment?post_id=" + $(this).attr('data-comment_post_id'),
+                                                            url: "REST_api/comment?post_id=" + post_id,
                                                             processData: false,
                                                             contentType: "application/json",
                                                             data: '{"CommentBody" : "' + comment_body + '"}',
