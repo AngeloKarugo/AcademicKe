@@ -1637,8 +1637,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $db->query('INSERT into post_likes values (\'\', :post_id, :user_id)', array(':post_id' => $post_id, ':user_id' => $liker_id));
 
-            $user_id = $db->query('SELECT user_id from posts where id = :post_id', array(':post_id' => $post_id))[0]['user_id'];
-
             //creating a notification
             if ($liker_id != $post_owner_id) {
 
@@ -1658,7 +1656,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $db->query('DELETE from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' => $post_id, ':user_id' => $liker_id));
 
-            $db->query('DELETE from notifications where type = 1 and sender_id = :sender and receiver_id = :receiver and post_id = :post_id', array(':sender' => $user_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
+            $db->query('DELETE from notifications where type = 1 and sender_id = :sender and receiver_id = :receiver and post_id = :post_id', array(':sender' => $liker_id, ':receiver' => $post_owner_id, ':post_id' => $post_id));
 
             $is_liked = FALSE;
         }
@@ -1692,7 +1690,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $is_rated = TRUE;
         }
 
-        $rating = round($db->query('SELECT AVG(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']))[0]['AVG(rating)'], 1);
+        $rating = round($db->query('SELECT AVG(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $_GET['comment_id']))[0]['AVG(rating)'], 1);
 
         echo "{";
         echo '"Rating" : "' . $rating . '",';
@@ -1992,17 +1990,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $db->query('DELETE from shared_posts where post_id = :post_id', array(':post_id' => $_GET['post_id']));
 
-        $db->query('DELETE from comments where post_id = :post_id', array(':post_id' => $_GET['post_id']));
-
-        $db->query('DELETE from files where post_id = :post_id', array(':post_id' => $_GET['post_id']));
-
-        $db->query('DELETE from comments where post_id = :post_id', array(':post_id' => $_GET['post_id']));
+        $db->query('DELETE from reports where post_id = :post_id', array(':post_id' => $_GET['post_id']));
 
         $comments = $db->query('SELECT id from comments where post_id = :post_id', array(':post_id' => $_GET['post_id']));
 
         foreach ($comments as $comment) {
             $db->query('DELETE from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']));
         }
+
+        $db->query('DELETE from comments where post_id = :post_id', array(':post_id' => $_GET['post_id']));
+
+        $files = $db->query('SELECT file_address from files where post_id = :post_id', array(':post_id' => $_GET['post_id']));
+
+        foreach ($files as $file) {
+
+            $address = str_replace('\\\\\\\\', '\\', $file['file_address']);
+            unlink('F:\\Prorgramming Resources\\xampp\\htdocs\\PROJECT_SN\\' . $address . '');
+        }
+
+        $db->query('DELETE from files where post_id = :post_id', array(':post_id' => $_GET['post_id']));
 
         echo "Post deleted.";
     } elseif ($_GET['url'] == 'comment' && isset($_GET['comment_id'])) {
