@@ -222,7 +222,7 @@ function re_array_files(&$post_files)
                 </div>
 
                 <div class="p-1 ">
-                    <button class="fa fa-user nav_icon" id="profile_icon" onclick="window.location.href = 'profile1.php?username=<?php echo $myName; ?>'"></button>
+                    <button class="fa fa-user nav_icon" id="profile_icon"></button>
                 </div>
 
                 <div class="p-0 ">
@@ -550,7 +550,11 @@ function re_array_files(&$post_files)
                 var profile_img = details.ProfileImg;
 
                 if (details.Status == "Good") {
-                    $('#username_page_top').text(details.Username);
+                    $('#username_page_top').text(username);
+
+                    $('#profile_icon').click(function() {
+                        window.location.href = "profile1.php?username=" + username;
+                    });
 
                     if (profile_img) {
                         $('#profile_img_navbar').attr("src", '' + profile_img + '');
@@ -689,7 +693,7 @@ function re_array_files(&$post_files)
 
                     $('#edit_profile_btn').click(function() {
 
-                        $('#edit_profile').html('<div class="d-flex  p-0" id="user_info_container"><!-- column for the username and the profile photo --><div class=" p-2 flex-column justify-content-center " id="user_pic_and_name"><div class="p-1 d-flex justify-content-left image_wrapper" id="user_profile_page_image"><form id = "image_upload_form" name = "image_upload_form"><img id="profile_img_edit_profile_page" ' + display_profile_image(posts[0].ProfileImg) + ' class="profile_image rounded-circle border img-responsive shadow-sm visible" loading=" lazy" /><input type = "file" id = "edit_profile_img" onchange = "show_image(this)" name = "edit_profile_img" style = "opacity:0;"></form> </div> <div class="p-1 d-flex flex-column" > <div class = "flex-row d-flex align-items-top"> <strong class="user_profile_page_name edit_data"></strong><i class="fa fa-pencil-square-o edit_profile_icon" id = "edit_username" style = "margin-left:5px; padding-top:5px;"></i></div> <div class = "flex-row d-flex"><span class = "update_response" id = "username_response"></span></div></div></div><!-- column for the institution, designation and specialty--><div class="p-2 flex-column justify-content-center flex-fill mr-auto mr-right"><div class="p-1 d-flex " ><strong> Institution: </strong><span class="user_profile_page_institution edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil-square-o edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_institution"></i></div><div class="p-1 d-flex " ><strong> Designation: </strong><span class="user_profile_page_designation edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil-square-o edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_designation"></i></div><div class="p-1 d-flex " > <strong>Specialty: </strong><span class="user_profile_page_specialty edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil-square-o edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_specialty"></i> </div> <div class="p-1 d-flex "> <strong class = "d-flex flex-shrink">Change Password </strong><span class=" user_profile_page_password edit_data" style="margin-left: 5px"></span><i class="fa fa-pencil-square-o edit_profile_icon" style="margin-left:5px; padding-top:5px;" id="edit_password"></i> </div> <div class = "p-1 d-flex align-items-end "><button class = "p-1 ml-auto flex-shrink" id = "save_changes">save changes</button></div> </div> </div>');
+                        $('#edit_profile').html('<div class="d-flex  p-0" id="user_info_container"><!-- column for the username and the profile photo --><div class=" p-2 flex-column justify-content-center " id="user_pic_and_name"><div class="p-1 d-flex justify-content-left image_wrapper" id="user_profile_page_image"><form id = "image_upload_form" name = "image_upload_form"><img id="profile_img_edit_profile_page" ' + display_profile_image(posts[0].ProfileImg) + ' class="profile_image rounded-circle border img-responsive shadow-sm visible" loading=" lazy" /><input type = "file" id = "edit_profile_img" onchange = "show_image(this)" name = "edit_profile_img" style = "opacity:0;"></form> </div> <div class="p-1 d-flex flex-column" > <div class = "flex-row d-flex align-items-top"> <strong class="user_profile_page_name edit_data"></strong><i class="fa fa-pencil  edit_profile_icon" id = "edit_username" style = "margin-left:5px; padding-top:5px;"></i></div> <div class = "flex-row d-flex"><span class = "update_response" id = "username_response"></span></div></div></div><!-- column for the institution, designation and specialty--><div class="p-2 flex-column justify-content-center flex-fill mr-auto mr-right"><div class="p-1 d-flex " ><strong> Institution: </strong><span class="user_profile_page_institution edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil  edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_institution"></i></div><div class="p-1 d-flex " ><strong> Designation: </strong><span class="user_profile_page_designation edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil  edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_designation"></i></div><div class="p-1 d-flex " > <strong>Specialty: </strong><span class="user_profile_page_specialty edit_data" style = "margin-left: 5px"></span><i class="fa fa-pencil  edit_profile_icon" style = "margin-left:5px; padding-top:5px;" id = "edit_specialty"></i> </div> <div class="p-1 d-flex "> <strong class = "d-flex flex-shrink">Change Password </strong><span class=" user_profile_page_password edit_data" style="margin-left: 5px"></span><i class="fa fa-pencil  edit_profile_icon" style="margin-left:5px; padding-top:5px;" id="edit_password"></i> </div> <div class = "p-1 d-flex align-items-end "><button class = "p-1 ml-auto flex-shrink" id = "save_changes">save changes</button></div> </div> </div>');
 
                         $('#save_changes').css({
                             "visibility": "hidden"
