@@ -11,43 +11,51 @@
     <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
     <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
 </head>
 
 <body>
     <div class="login-clean part_1">
-        <form name="create_account_1">
+        <form class="form" name="create_account_1">
+
             <h2 class="sr-only">Create Account 1</h2><label></label>
 
             <div class="illustration">
-                <h3 class="text-center text-muted">Create Account</h3>
+                <h3 class="text-center text-muted">Create AcademicKe Account</h3>
             </div>
             <div class="form-group">
                 <input class="border rounded form-control form-control-sm" id="username" type="text" name="username"
-                    placeholder="Enter Username" required="">
+                    placeholder="Enter Username" required="" onchange="survey_username(this.value)"
+                    oninput="match_username(this.value)">
+                <span class="update_response" id="username_feedback"></span>
             </div>
             <div class="form-group">
                 <input class="border rounded form-control form-control-sm" id="email" type="email" name="email"
                     placeholder="e.g. johndoe@pu.ac.ke" required="" data-toggle="tooltip" data-placement="top"
                     title="Use institution email address">
+                <span class="update_response" id="email_feedback"></span>
             </div>
             <div class="form-group">
                 <input class="border rounded form-control form-control-sm" id="institution" type="text"
                     name="institution" placeholder="e.g. Pwani University" required="" data-toggle="tooltip"
                     data-placement="top" title="Use institution email address" disabled>
+                <span class="update_response" id="institution_feedback"></span>
             </div>
             <div class="form-group">
                 <select class="browser-default custom-select form-control-sm" id="designation" name='designation'
                     required="">
                     <option class="form-control-sm" value="" disable selected>Select your designation</option>
-                    <option class="form-control-sm" value='undergraduate'>Undergraduate Student</option>
-                    <option class="form-control-sm" value='graduate'>Graduate Student</option>
+                    <option class="form-control-sm" value='undergraduate Student'>Undergraduate Student</option>
+                    <option class="form-control-sm" value='graduate student'>Graduate Student</option>
                     <option class="form-control-sm" value='lecturer'>Lecturer/Researcher</option>
                 </select>
+                <span class="update_response" id="designation_feedback"></span>
             </div>
 
             <div class="form-group">
                 <input class="border rounded form-control form-control-sm" id="specialty" type="text" name="specialty"
                     placeholder="Your field(s) of specialization">
+                <span class="update_response" id="specialty_feedback"></span>
             </div>
 
             <div class="form-group d-flex p-0 flex-fill align-items-end">
@@ -67,10 +75,18 @@
             <div class="illustration">
                 <h3 class="text-center text-muted">Complete Sign-up</h3>
             </div>
-            <div class="form-group"><input class="border rounded form-control form-control-sm" type="password"
-                    id="password1" name="password1" placeholder="Set Password"><input
-                    class="border rounded form-control form-control-sm" type="password" id="password2" name="password1"
-                    placeholder="Confirm Password"></div>
+            <div class="form-group">
+                <input class="border rounded form-control form-control-sm" type="password" id="password1"
+                    name="password1" placeholder="Set Password" onchange="password_response(this.value)">
+
+                <span class="update_response" id="password_1_feedback"></span>
+
+                <input class="border rounded form-control form-control-sm" type="password" id="password2"
+                    name="password2" placeholder="Confirm Password">
+
+                <span class="update_response" id="password_feedback"></span>
+
+            </div>
             <div class="form-group">
                 <button class="btn btn-success btn-block border rounded" id="create_account" type="button">Create
                     Account</button>
@@ -116,6 +132,15 @@
             var email = $("#email").val();
 
             var domain = email.substr(email.indexOf('@') + 1);
+
+            atpos = email.indexOf("@");
+
+            dotpos = email.lastIndexOf(".");
+
+            if (atpos < 1 || (dotpos - atpos < 2)) {
+                $('#email_feedback').html('<i class = "fa fa-times"></i>please provide a valid organization email address.');
+                document.create_account_1.email.focus();
+            }
 
             domain = domain.split('.');
 
@@ -364,7 +389,27 @@
                     break;
             }
 
-        })
+            $.ajax({
+                method: 'GET',
+                url: 'REST_api/emails?email=' + email,
+                processData: false,
+                contentType: 'application/json',
+                data: '',
+                success: function (res) {
+
+                    console.log(res);
+
+                    if (res == "email in use") {
+                        $('#email_feedback').html('<i class = "fa fa-times"></i>email address already in use. Please use another address or <a href = "login.html">Click here to Log in</a>.');
+
+                        document.create_account_1.email.value = "";
+
+                        document.create_account_1.email.focus();
+                    }
+                }
+            });
+
+        });
 
         $('#create_account').click(function () {
 
@@ -379,7 +424,7 @@
                     success: function (r) {
                         console.log(r)
 
-                        var res = JSON.parse(r)
+                        var res = JSON.parse(r);
 
                         $('.part_3').css({ "display": "block" })
 
@@ -441,52 +486,95 @@
         function validate() {
 
             if (document.create_account_1.username.value == "") {
-                alert("Please provide your name");
+                $('#username_feedback').html('<i class = "fa fa-times"></i>please enter a username.');
                 document.create_account_1.username.focus();
                 return false;
+            } else if (!match_username(document.create_account_1.username.value)) {
+                return false
             }
+
             if (document.create_account_1.email.value == "") {
-                alert("Please provide your Email");
+                $('#email_feedback').html('<i class = "fa fa-times"></i>please provide a valid organization email address.');
                 document.create_account_1.email.focus();
+
                 return false;
-            } else {
-                var email = document.create_account_1.email.value;
-                atpos = email.indexOf("@");
-                dotpos = email.lastIndexOf(".");
-                if (atpos < 1 || (dotpos - atpos < 2)) {
-                    alert("Please enter correct email address")
-                    document.create_account_1.email.focus();
-                    return false;
-                }
             }
+
             if (document.create_account_1.institution.value == "") {
-                alert("Please provide a valid organization Email");
+                $('#institution_feedback').html('<i class = "fa fa-times"></i>please select your institution from the list.');
                 document.create_account_1.institution.focus();
                 return false;
             }
+
             if (document.create_account_1.designation.value == "") {
-                alert("Please enter your designation");
+                $('#designation_feedback').html('<i class = "fa fa-times"></i>please select your designation from the list.');
                 return false;
             }
+
             if (document.create_account_1.specialty.value == "") {
-                alert("Please enter your field of specialization");
+                $('#specialty_feedback').html('<i class = "fa fa-times"></i>please enter your field of specialization.');
+                document.create_account_1.specialty.focus();
                 return false;
             }
 
             return (true);
         }
 
+        //validating the passwords
         function validate_2() {
             if ((document.create_account_2.password1.value != document.create_account_2.password2.value) || (document.create_account_2.password1.value == "")) {
-                alert("The entered passwords don't match. Please enter matching passwords");
+                $('#password_feedback').html('<i class = "fa fa-times"></i>passwords don\'t match');
                 return false;
-            } else if (document.create_account_2.password1.value.length() > 6) {
-                alert("Minimum password length is 6 characters");
+            } else if (document.create_account_2.password1.value.length < 6) {
+                $('#password_feedback').html('<i class = "fa fa-times"></i>minimum password length is 6 characters');
                 return false;
             }
 
             return true;
         }
+
+        function password_response(password) {
+            if (password.length < 6) {
+                $('#password_1_feedback').html('<i class = "fa fa-times"></i>minimum password length is 6 characters');
+            }
+        }
+
+        //making sure the username doesnt contain illegal characters
+        function match_username(value) {
+
+            $('#username_feedback').html('');
+
+            if (value.match(/[^a-zA-Z0-9_ ]+/)) {
+                $('#username_feedback').html('<i class = "fa fa-times"></i>only alphabets(a-z, A-Z), numerals(1-9) and underscores(_) allowed.');
+
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //check username availability
+        function survey_username(username) {
+            $.ajax({
+                method: 'GET',
+                url: 'REST_api/usernames?username=' + username,
+                contentType: 'application/json',
+                data: '',
+                success: function (r) {
+                    console.log(r);
+
+                    if (r == 'username unavailable') {
+                        $('#username_feedback').html('<i class = "fa fa-times"></i>That username is already in use.');
+
+                        document.create_account_1.username.value = "";
+                    }
+                }
+            })
+        }
+
+        $('.form-group').change(function () {
+            $('.update_response').text('');
+        })
 
     </script>
 </body>

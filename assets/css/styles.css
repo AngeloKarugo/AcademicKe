@@ -398,3 +398,13 @@ hr{
 .logged_in_as_page_top{
     font-family: monospace;
 }
+
+.update_response{
+    color: rgba(255, 38, 0, 0.863);
+    font-size: x-small;
+}
+
+.form{
+    overflow-y: hidden;
+    padding-bottom: 5px;
+}

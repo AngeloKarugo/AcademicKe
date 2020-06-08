@@ -17,7 +17,7 @@
     <div class="login-clean">
         <form method="post">
             <center>
-                <h2>Log In to AkademiKe</h2>
+                <h2>Log In to AkademicKe</h2>
             </center>
             <!-- <div class="illustration"><i class="icon ion-ios-navigate"></i></div> -->
             <div class="form-group">
@@ -28,6 +28,9 @@
                 <input class="border rounded form-control form-control-sm" type="password" id="password" name="password"
                     placeholder="Password">
             </div>
+
+            <span class="update_response form-group" id="authentication_feedback"></span><br><br>
+
             <div class="form-group">
                 <button class="btn btn-secondary btn-block" id="login" data-bs-hover-animate="wobble" type="button">Log
                     In
@@ -54,16 +57,14 @@
                     console.log(r);
 
                     if ($('#username').val() == "Super") {
-                        //code...
+                        window.location.href = "admin_dashboard.html";
                     } else {
                         window.location.href = "index.html";
                     }
                 },
                 error: function (r) {
-                    // setTimeout(function () {
-                    //     $('[data-bs-hover-animate]').removeClass('animated ' + $('[data-bs-hover-animate]').attr('data-bs-hover-animate'));
-                    // }, 2000)
-                    // $('[data-bs-hover-animate]').addClass('animated ' + $('[data-bs-hover-animate]').attr('data-bs-hover-animate'))
+                    $('#authentication_feedback').html('<i class = "fa fa-times"></i>incorrect username or password.');
+
                     console.log(r)
                 }
 
