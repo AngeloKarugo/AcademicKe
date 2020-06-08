@@ -231,7 +231,6 @@ function get_comments(post_id, user_id) {
 
                                 console.log(r);
 
-
                             },
 
                             error: function () {
@@ -240,67 +239,26 @@ function get_comments(post_id, user_id) {
                         })
 
                         $('#comment_input').val("");
+
+                        $('#comment_modal').modal('hide');
+
                     }
                 })
 
-
+                //liking a post through the comments modal
                 $('[data-id_comment]').click(function () {
 
                     var button_id = $(this).attr('data-id_comment');
 
-                    $.ajax({
-                        method: "POST",
-                        url: "REST_api/likes?post_id=" + $(this).attr('data-id_comment'),
-                        processData: false,
-                        contentType: "application/json",
-                        data: '',
-                        success: function (r) {
-                            var res = JSON.parse(r)
-                            $("[data-id_comment='" + button_id + "']").html('<i class="fa fa-check-square-o"></i><span ><small>  ' + res.PostLikes + '</small></span>');
-
-                            if (res.PostIsLiked) {
-                                $("[data-id_comment='" + button_id + "']").css("color", "limegreen");
-                            } else {
-                                $("[data-id_comment='" + button_id + "']").css("color", "grey");
-                            }
-
-                            console.log(res);
-                        },
-
-                        error: function () {
-                            console.log('error');
-                        }
-                    })
+                    like_post(button_id);
                 })
 
+                //reposting a post through the comments modal
                 $('[data-share_post_id]').click(function () {
 
                     var button_id = $(this).attr('data-share_post_id');
 
-                    $.ajax({
-                        method: "POST",
-                        url: "REST_api/share?post_id=" + button_id,
-                        processData: false,
-                        contentType: "application/json",
-                        data: '',
-                        success: function (r) {
-                            var res = JSON.parse(r)
-
-                            $("[data-share_post_id='" + button_id + "']").html('<i class="fa fa-share-alt "></i><span ><small>  ' + res.PostShares + '</small></span>');
-
-                            if (res.PostIsShared) {
-                                $("[data-share_post_id='" + button_id + "']").css("color", "limegreen");
-                            } else {
-                                $("[data-share_post_id='" + button_id + "']").css("color", "grey");
-                            }
-
-                            console.log(res);
-                        },
-
-                        error: function () {
-                            console.log('error');
-                        }
-                    })
+                    rePost_post(button_id);
                 })
 
                 //set the share button to green if the user has liked that post
@@ -392,6 +350,9 @@ function report_post(post_id) {
                                         // var res = JSON.parse(r)
 
                                         console.log(r);
+
+                                        $('#report_modal').modal('hide');
+
                                     },
 
                                     error: function () {
@@ -637,7 +598,7 @@ function validate_pdf_upload(file_type) {
             if (extensions.includes(file_extension)) {
                 $('#pdf_feedback').html($('#pdf_feedback').html() + file_name + '<br/>');
             } else {
-                $('#pdf_feedback').html('*only pdf and xml spreadsheets allowed. Please select a different file<br/>');
+                $('#pdf_feedback').html('*only pdf and xls spreadsheets allowed. Please select a different file<br/>');
                 $('#submit_post').prop('disabled', true);
                 return false;
             }
