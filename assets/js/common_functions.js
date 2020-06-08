@@ -122,7 +122,7 @@ function rating_system(rating, comment_id) {
                 })
 
             } else if (details.Status == "Deactivated") {
-                alert(details.Status);
+                alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
             } else if (details.Status == "Not logged in") {
                 window.location.href = 'login.html';
             } else if (details.Status == "Admin") {
@@ -285,20 +285,47 @@ function get_comments(post_id, user_id) {
 
 //the guy who deletes posts is this one
 function delete_post(post_id) {
+
     $.ajax({
-        method: "DELETE",
-        url: "REST_api/post?post_id=" + post_id,
+        method: "GET",
+        url: "REST_api/user",
         processData: false,
         contentType: "application/json",
         data: '',
         success: function (r) {
-            console.log(r);
-        },
+            var details = JSON.parse(r)
 
+            if (details.Status == "Good") {
+
+                $.ajax({
+                    method: "DELETE",
+                    url: "REST_api/post?post_id=" + post_id,
+                    processData: false,
+                    contentType: "application/json",
+                    data: '',
+                    success: function (r) {
+                        console.log(r);
+                    },
+
+                    error: function (r) {
+                        console.log(r);
+                    }
+                });
+
+            } else if (details.Status == "Deactivated") {
+                alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
+            } else if (details.Status == "Not logged in") {
+                window.location.href = 'login.html';
+            } else if (details.Status == "Admin") {
+                // window.location.href = 'admin_dashboard.html';
+            }
+        },
         error: function (r) {
             console.log(r);
+
         }
     });
+
 }
 
 //the guy who reports posts
@@ -371,7 +398,7 @@ function report_post(post_id) {
                 })
 
             } else if (details.Status == "Deactivated") {
-                alert(details.Status);
+                alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
             } else if (details.Status == "Not logged in") {
                 window.location.href = 'login.html';
             } else if (details.Status == "Admin") {
@@ -425,7 +452,7 @@ function like_post(post_id) {
                 });
 
             } else if (details.Status == "Deactivated") {
-                alert(details.Status);
+                alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
             } else if (details.Status == "Not logged in") {
                 window.location.href = 'login.html';
             } else if (details.Status == "Admin") {
@@ -441,30 +468,57 @@ function like_post(post_id) {
 
 //the guy who rePosts a post
 function rePost_post(post_id) {
+
     $.ajax({
-        method: "POST",
-        url: "REST_api/share?post_id=" + post_id,
+        method: "GET",
+        url: "REST_api/user",
         processData: false,
         contentType: "application/json",
         data: '',
         success: function (r) {
-            var res = JSON.parse(r)
+            var details = JSON.parse(r)
 
-            $("[data-share_post_id='" + post_id + "']").html('<i class="fa fa-share-alt "></i><span ><small>  ' + res.PostShares + '</small></span>');
+            if (details.Status == "Good") {
 
-            if (res.PostIsShared) {
-                $("[data-share_post_id='" + post_id + "']").css("color", "limegreen");
-            } else {
-                $("[data-share_post_id='" + post_id + "']").css("color", "grey");
+                $.ajax({
+                    method: "POST",
+                    url: "REST_api/share?post_id=" + post_id,
+                    processData: false,
+                    contentType: "application/json",
+                    data: '',
+                    success: function (r) {
+                        var res = JSON.parse(r)
+
+                        $("[data-share_post_id='" + post_id + "']").html('<i class="fa fa-share-alt "></i><span ><small>  ' + res.PostShares + '</small></span>');
+
+                        if (res.PostIsShared) {
+                            $("[data-share_post_id='" + post_id + "']").css("color", "limegreen");
+                        } else {
+                            $("[data-share_post_id='" + post_id + "']").css("color", "grey");
+                        }
+
+                        console.log(res);
+                    },
+
+                    error: function () {
+                        console.log('error');
+                    }
+                })
+
+            } else if (details.Status == "Deactivated") {
+                alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
+            } else if (details.Status == "Not logged in") {
+                window.location.href = 'login.html';
+            } else if (details.Status == "Admin") {
+                // window.location.href = 'admin_dashboard.html';
             }
-
-            console.log(res);
         },
+        error: function (r) {
+            console.log(r);
 
-        error: function () {
-            console.log('error');
         }
-    })
+    });
+
 }
 
 //to help decide whether to display the rating or not

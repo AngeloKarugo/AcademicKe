@@ -566,7 +566,16 @@ function re_array_files(&$post_files)
                     })
 
                 } else if (details.Status == "Deactivated") {
-                    alert(details.Status);
+                    $('#username_page_top').text(username);
+
+                    $('#profile_icon').click(function() {
+                        window.location.href = "profile1.php?username=" + username;
+                    });
+
+                    if (profile_img) {
+                        $('#profile_img_navbar').attr("src", '' + profile_img + '');
+                    }
+
                 } else if (details.Status == "Not logged in") {
                     // window.location.href = 'login.html';
                     $('#page_header').css('display', 'none');
@@ -646,7 +655,7 @@ function re_array_files(&$post_files)
                                     });
 
                                 } else if (details.Status == "Deactivated") {
-                                    alert(details.Status);
+                                    alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
                                 } else if (details.Status == "Not logged in") {
                                     window.location.href = 'login.html';
                                 } else if (details.Status == "Admin") {

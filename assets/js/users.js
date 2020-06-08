@@ -7,7 +7,7 @@ $.ajax({
     success: function (r) {
         var details = JSON.parse(r)
 
-        if (details.Status == "Good") {
+        if (details.Status == "Good" || details.Status == "Deactivated") {
             $('#username_page_top').text(details.Username);
 
             if (details.ProfileImg) {
@@ -135,8 +135,6 @@ $.ajax({
                 })
             })
 
-        } else if (details.Status == "Deactivated") {
-            alert(details.Status);
         } else if (details.Status == "Not logged in") {
             window.location.href = 'login.html';
         }

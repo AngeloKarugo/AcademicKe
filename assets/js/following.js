@@ -27,7 +27,7 @@ $.ajax({
             window.location.href = "profile1.php?username=" + details.Username;
         })
 
-        if (details.Status == "Good") {
+        if (details.Status == "Good" || details.Status == "Deactivated") {
             $('#username_page_top').text(details.Username);
 
             if (details.ProfileImg) {
@@ -48,14 +48,7 @@ $.ajax({
                 logout();
             });
 
-        } else if (details.Status == "Deactivated") {
-            alert(details.Status);
-        } else if (details.Status == "Not logged in") {
-            // window.location.href = 'login.html';
-        } else if (details.Status == "Admin") {
-            // window.location.href = 'admin_dashboard.html';
         }
-
 
     },
     error: function (r) {
@@ -148,7 +141,7 @@ $(document).ready(function () {
                                     })
 
                                 } else if (details.Status == "Deactivated") {
-                                    alert(details.Status);
+                                    alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.')
                                 } else if (details.Status == "Not logged in") {
                                     window.location.href = 'login.html';
                                 } else if (details.Status == "Admin") {
@@ -237,7 +230,7 @@ $(document).ready(function () {
                                     })
 
                                 } else if (details.Status == "Deactivated") {
-                                    alert(details.Status);
+                                    alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.')
                                 } else if (details.Status == "Not logged in") {
                                     window.location.href = 'login.html';
                                 } else if (details.Status == "Admin") {
@@ -329,7 +322,7 @@ $(document).ready(function () {
                                     })
 
                                 } else if (details.Status == "Deactivated") {
-                                    alert(details.Status);
+                                    alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.')
                                 } else if (details.Status == "Not logged in") {
                                     window.location.href = 'login.html';
                                 } else if (details.Status == "Admin") {

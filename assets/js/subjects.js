@@ -22,15 +22,13 @@ $(document).ready(function () {
         success: function (r) {
             var details = JSON.parse(r);
 
-            if (details.Status == "Good") {
+            if (details.Status == "Good" || details.Status == "Deactivated") {
 
                 //handler for logout button
                 $('#log_out_button').click(function () {
                     logout();
                 });
 
-            } else if (details.Status == "Deactivated") {
-                alert(details.Status);
             } else if (details.Status == "Not logged in") {
                 // window.location.href = 'login.html';
             } else if (details.Status == "Admin") {
@@ -118,7 +116,7 @@ $(document).ready(function () {
                             });
 
                         } else if (details.Status == "Deactivated") {
-                            alert(details.Status);
+                            alert('Sorry, you are restricted from performing that action. Your account is deactivated. Contact site administration for more details.');
                         } else if (details.Status == "Not logged in") {
                             window.location.href = 'login.html';
                         } else if (details.Status == "Admin") {
