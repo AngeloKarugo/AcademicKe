@@ -578,7 +578,9 @@ function time_conversion(time) {
 //this guy displays the image if it exists
 function display_profile_image(image) {
     if (image) {
-        return 'src = "' + image + '"'
+        return 'src = "' + image + '"';
+    } else {
+        return 'src = "files\\profile\\img\\default.png"';
     }
 }
 

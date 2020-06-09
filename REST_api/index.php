@@ -535,6 +535,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $is_shared = TRUE;
                 }
 
+                $escaped = array("\r\n", "\n", "\r");
+
+                $break = '<br/>';
+
+                $t_post['body'] = str_replace($escaped, $break, $t_post['body']);
+
                 $response .= "{";
                 $response .= '"PostId": ' . $t_post['id'] . ',';
                 $response .= '"PostBody": "' . $t_post['body'] . '",';

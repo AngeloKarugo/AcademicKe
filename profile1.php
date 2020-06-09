@@ -620,6 +620,8 @@ function re_array_files(&$post_files)
 
                     if (posts[0].ProfileImg) {
                         $('#profile_img_profile_page').attr('src', '' + posts[0].ProfileImg + '');
+                    } else {
+                        $('#profile_img_profile_page').attr('src', 'files\\profile\\img\\default.png');
                     }
 
                     $('#user_profile_page_follow_btn').click(function() {

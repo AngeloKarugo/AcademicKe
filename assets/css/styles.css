@@ -408,3 +408,29 @@ hr{
     overflow-y: hidden;
     padding-bottom: 5px;
 }
+
+#upload_img_signup{
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#upload_img_signup #profile_img_edit_profile_page{
+    width: 30vw;
+    height: 30vw;
+}
+
+#upload_img_signup #edit_profile_img {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 0;
+    left: 0;
+}
+
+/* #edit_profile_img{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+} */

@@ -2,15 +2,51 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Deactivated</title>
+    <link rel="stylesheet" href="assets/css/profile_styles.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean-1.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
 </head>
 
 <body>
-    <div>
-        <span>
-            <h2>Sorry, Your Account is Deactivated.</h2>
-        </Span>
+    <div class="login-clean part_3">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="illustration">
+                <h3 class="text-center text-muted">Upload Profile Picture</h3>
+            </div>
+            <div class="form-group flex-column p-1 d-flex align-content-center ">
+                <!-- <input type="file" id="profile_img_signup_form" name="profile_image" value="Select Profile Picture">
+                <input id="profile_img_signup_submit" value="Upload Profile Picture"> -->
+
+                <div id="upload_img_signup">
+                    <img id="profile_img_edit_profile_page" src="files\\profile\\img\\default.png"
+                        class="profile_image rounded-circle border img-responsive shadow-sm visible flex-fill"
+                        loading=" lazy" />
+                    <input type="file" id="edit_profile_img" onchange="show_image(this)" name="edit_profile_img"
+                        style="opacity:0;">
+                </div>
+
+
+                <button class="btn btn-success btn-block border rounded" id="complete_signup" type="button">Complete
+                    Signup</button>
+            </div>
+
+        </form>
     </div>
 </body>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/common_functions.js"></script>
+<script type="text/javascript">
+    $('#profile_img_edit_profile_page').click(function () {
+        $('#edit_profile_img').click();
+    });
+</script>
 
 </html>

@@ -18,7 +18,7 @@ $.ajax({
 
             $(document).ready(function () {
 
-                //make ajax call to fetch all users
+                //make ajax call to fetch all subjects
                 $.ajax({
                     method: "GET",
                     url: "REST_api/subjects",
@@ -50,9 +50,9 @@ $.ajax({
 
                                         var is_following = JSON.parse(r)
 
-                                        users[index].IsFollowing = is_following.IsFollowing
+                                        subjects[index].IsFollowing = is_following.IsFollowing
 
-                                        if (users[index].IsFollowing) {
+                                        if (subjects[index].IsFollowing) {
                                             // $('[data-user_id = "' + subject_id + '"]').text('Unfollow');
                                             $('[data-subject_id = "' + subject_id + '"]').css('display', 'none');
                                         }

@@ -76,7 +76,7 @@ $.ajax({
                                     // }
                                 }
 
-                                if (!notifications[index].Seen) {
+                                if (notifications[index].Seen == 0) {
                                     $('.notification_container').css({ "background-color": "lightgrey" });
                                 }
                             })
