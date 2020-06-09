@@ -127,7 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                 $rating = round($db->query('SELECT AVG(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']))[0]['AVG(rating)'], 1);
 
+                $rating_count = $db->query('SELECT COUNT(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']))[0]['COUNT(rating)'];
+
                 $output .= "{";
+
+                $output .= '"CommentRatingCount" : "' . $rating_count . '",';
 
                 if ($rating) {
                     # code...
@@ -201,7 +205,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
                 $rating = round($db->query('SELECT AVG(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']))[0]['AVG(rating)'], 1);
 
+                $rating_count = $db->query('SELECT COUNT(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $comment['id']))[0]['COUNT(rating)'];
+
                 $output .= "{";
+
+                $output .= '"CommentRatingCount" : "' . $rating_count . '",';
 
                 if ($rating) {
                     # code...
@@ -1697,11 +1705,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $is_rated = TRUE;
         }
 
+        $ratings = $db->query('SELECT COUNT(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $_GET['comment_id']))[0]['COUNT(rating)'];
         $rating = round($db->query('SELECT AVG(rating) from comment_ratings where comment_id = :comment_id', array(':comment_id' => $_GET['comment_id']))[0]['AVG(rating)'], 1);
 
         echo "{";
         echo '"Rating" : "' . $rating . '",';
-        echo '"Comment_id" : "' . $_GET['comment_id'] . '"';
+        echo '"Comment_id" : "' . $_GET['comment_id'] . '",';
+        echo '"Ratings_Count" : "' . $ratings . '"';
         echo "}";
     } elseif ($_GET['url'] == 'update_profile') {
         # code...

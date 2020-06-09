@@ -79,10 +79,6 @@ function logout() {
     })
 }
 
-String.prototype.escape_special_chars = function () {
-    return this.replace(/\n/g, "\\n").replace(/\'/g, "\\'").replace(/\"/g, '\\"').replace(/\&/g, "\\&").replace(/\t/g, "\\t").replace(/\b/g, "\\b").replace(/\f/g, "\\f");
-}
-
 //this guy displays the tooltips
 $(function () {
     $("[data-toggle = 'tooltip']").tooltip();
@@ -113,7 +109,11 @@ function rating_system(rating, comment_id) {
                         var res = JSON.parse(r)
                         console.log(res);
 
-                        $('[data-comment_id = "' + comment_id + '"]').text('Rating: ' + res.Rating + '');
+                        if (res.Ratings_Count > 1) {
+                            $('[data-comment_id = "' + comment_id + '"]').text('Avg Rating: ' + res.Rating + ' ∙ Rated by ' + res.Ratings_Count + ' users');
+                        } else {
+                            $('[data-comment_id = "' + comment_id + '"]').text('Avg Rating: ' + res.Rating + ' ∙ Rated by ' + res.Ratings_Count + ' user');
+                        }
 
                     },
                     error: function () {
@@ -171,7 +171,7 @@ function get_comments(post_id, user_id) {
                         comment[i].CommentBody = comment[i].CommentBody.replace(">", "&gt;>");
                         comment[i].CommentBody = comment[i].CommentBody.replace("%2F", "\\/");
 
-                        output += '<div class="conatiner d-flex flex-row " id="comments_modal" style="scroll-padding-left: 10px;"> <div class="p-1 flex-column " id="tl_profile_img_container"> <img ' + display_profile_image(comment[i].CommentedByImg) + ' class="profile_image_comments rounded-circle border img-responsive shadow-sm visible" id="profile_img_comments' + i + '"  loading="lazy"> </div> <div class="p-1 flex-fill "> <div class="d-flex p-0 "> <table> <tr> <td colspan="3"><strong onclick = "window.location.href = \'profile1.php?username=' + comment[i].CommentedBy + '\'">' + comment[i].CommentedBy + '</strong>  ∙  ' + time_conversion(comment[i].CommentedAt) + '</td> </tr> <tr> </tr> </table> <div class="three_dots ml-auto ml-left"><div class="dropdown p-1 "><button class="fa fa-chevron-down post_options_btn drop" type="button" data-toggle="dropdown"id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right options_dropdown_menu" aria-labelledby="dropdownMenuButton">' + get_comment_owner(comment[i].CommentedById, user_id, comment[i].CommentID) + '</div></div></div> </div> <div class="p-0 "> <span>' + comment[i].CommentBody + '</span><br> <!-- <div class="d-flex p-2  flex-fill justify-content-around"> <div class="p-2 "><a href="#"><i class="fa fa-check-square-o post_icon"></i></a><span><small></small></span></div> <div class="p-2 "><a href="#"><i class="fa fa-comment-o post_icon"></i></a><span><small></small></span></div> <div class="p-2 "><a href="#"><i class="fa fa-share-alt post_icon"></i></a><span><small></small></span></div> </div> --!><div class = "p-0  d-flex justify-content-end flex-fill"><span data-comment_id = "' + comment[i].CommentID + '"> ' + show_rating(comment[i].CommentRating) + ' </span></div> <label for = "comment_rating"><small>Rate this response</small></label> <div class="d-flex p-0 "><input class = "custom-range" type = "range" data-range_comment_rating = "' + comment[i].CommentID + '" id = "comment_rating_range' + i + '" onmouseup = "rating_system(this.value, ' + comment[i].CommentID + ')" ontouchend = "rating_system(this.value, ' + comment[i].CommentID + ')" min="0" max = "10" step = "0.5" name = "comment_rating" oninput = "comment_rating_range_output' + i + '.value = this.value"></input><input class = "input_range" type="text" id = "comment_rating_range_output' + i + '" value="0" disabled></input></div> <hr></div></div> </div> </div>';
+                        output += '<div class="conatiner d-flex flex-row " id="comments_modal" style="scroll-padding-left: 10px;"> <div class="p-1 flex-column " id="tl_profile_img_container"> <img ' + display_profile_image(comment[i].CommentedByImg) + ' class="profile_image_comments rounded-circle border img-responsive shadow-sm visible" id="profile_img_comments' + i + '"  loading="lazy"> </div> <div class="p-1 flex-fill "> <div class="d-flex p-0 "> <table> <tr> <td colspan="3"><strong onclick = "window.location.href = \'profile1.php?username=' + comment[i].CommentedBy + '\'">' + comment[i].CommentedBy + '</strong>  ∙  ' + time_conversion(comment[i].CommentedAt) + '</td> </tr> <tr> </tr> </table> <div class="three_dots ml-auto ml-left"><div class="dropdown p-1 "><button class="fa fa-chevron-down post_options_btn drop" type="button" data-toggle="dropdown"id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"></button><div class="dropdown-menu dropdown-menu-right options_dropdown_menu" aria-labelledby="dropdownMenuButton">' + get_comment_owner(comment[i].CommentedById, user_id, comment[i].CommentID) + '</div></div></div> </div> <div class="p-0 "> <span>' + comment[i].CommentBody + '</span><br> <!-- <div class="d-flex p-2  flex-fill justify-content-around"> <div class="p-2 "><a href="#"><i class="fa fa-check-square-o post_icon"></i></a><span><small></small></span></div> <div class="p-2 "><a href="#"><i class="fa fa-comment-o post_icon"></i></a><span><small></small></span></div> <div class="p-2 "><a href="#"><i class="fa fa-share-alt post_icon"></i></a><span><small></small></span></div> </div> --!><div class = "p-0  d-flex justify-content-end flex-fill"><span class = "monospace" data-comment_id = "' + comment[i].CommentID + '"> ' + show_rating(comment[i].CommentRating, comment[i].CommentRatingCount) + ' </span></div> <label for = "comment_rating"><small>Rate this response</small></label> <div class="d-flex p-0 "><input class = "custom-range" type = "range" data-range_comment_rating = "' + comment[i].CommentID + '" id = "comment_rating_range' + i + '" onmouseup = "rating_system(this.value, ' + comment[i].CommentID + ')" ontouchend = "rating_system(this.value, ' + comment[i].CommentID + ')" min="0" max = "10" step = "0.5" name = "comment_rating" oninput = "comment_rating_range_output' + i + '.value = this.value"></input><input class = "input_range" type="text" id = "comment_rating_range_output' + i + '" value="0" disabled></input></div> <hr></div></div> </div> </div>';
 
                     }
 
@@ -522,9 +522,13 @@ function rePost_post(post_id) {
 }
 
 //to help decide whether to display the rating or not
-function show_rating(rating) {
+function show_rating(rating, rated_by) {
     if (rating.length > 0) {
-        return 'Rating: ' + rating + '';
+        if (rated_by.length > 1) {
+            return 'Average Rating: ' + rating + ' ∙ Rated by ' + rated_by + ' users.';
+        } else {
+            return 'Average Rating: ' + rating + ' ∙ Rated by ' + rated_by + ' user.';
+        }
     } else {
         return '';
     }
