@@ -48,6 +48,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
 
         echo $response;
+    } elseif ($_GET['url'] == 'verify') {
+        $user_id = $_GET['user_id'];
+
+        $verified = $db->query('SELECT active from users where id = :id', array(':id' => $user_id))[0]['active'];
+
+        if (isset($_GET['cancel'])) {
+            $db->query('DELETE from users where id = :id', array(':id' => $user_id));
+
+            echo "request cancelled";
+        } else {
+            if ($verified == 1) {
+                echo "verified";
+            } else {
+                //send a verification token to the new user to verify the email
+                $verification_token = bin2hex(openssl_random_pseudo_bytes(64, True));
+
+                $db->query('INSERT into verification_tokens values (\'\', unix_timestamp(), :user_id, :code)', array(':user_id' => $user_id, ':code' => $verification_token));
+
+                Mail::send_mail("Welcome to AcademicKe", "<h3>Your account was created successfuly!</h3><br>Click on<a href='verify.php?user_id=" . $user_id . "&code=" . $verification_token . "> this link </a>to verify your account.<br><br><strong>Warning: </strong>Ignore this email if you did not sign up for an AcademicKe account.", $email);
+
+                echo "not verified";
+            }
+        }
     } elseif ($_GET['url'] == 'comments' && isset($_GET['post_id'])) {
         # code...
         if (isset($_COOKIE['SNID'])) {
@@ -235,11 +258,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
         echo $output;
-    } elseif ($_GET['url'] == 'timeline') {
+    } elseif ($_GET['url'] == 'timeline_users') {
         # code...
-        $token = $_COOKIE['SNID'];
+        $start = (int) $_GET['start'];
 
-        $user_id = $db->query('SELECT user_id from login_tokens where token = :token', array(':token' => sha1($token)))[0]['user_id'];
+        $user_id = $_GET['user_id'];
 
         $username = $db->query('SELECT username from users where id = :id', array(':id' => $user_id))[0]['username'];
 
@@ -256,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         UNION ALL
         /* posts shared by the logged in user */
         SELECT shared_posts.post_id as id, posts.body, posts.likes, posts.comments, posts.shares, shared_posts.user_id, posts.posted_at, users.username, topics.topic_name, post_types.type_name from posts, topics, post_types, users, shared_posts where shared_posts.user_id = :user_id and shared_posts.post_id = posts.id and shared_posts.user_id = users.id and posts.type_id = post_types.id and posts.topic_id = topics.id
-        ORDER BY posted_at desc', array(':user_id' => $user_id));
+        ORDER BY posted_at desc LIMIT 10 OFFSET ' . $start . '', array(':user_id' => $user_id));
 
         $response = "[";
 
@@ -373,47 +396,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     $response .= ",";
                 }
 
-                // //posts that the user has shared
-                // if (($post_owner_id != $user_id) && ($post['user_id'] == $user_id)) {
+                //posts that the user has shared
+                if (($post_owner_id != $user_id) && ($post['user_id'] == $user_id)) {
 
-                //     if ($db->query('SELECT id from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
-                //         # code...
-                //         $is_liked = TRUE;
-                //     }
+                    if ($db->query('SELECT id from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
+                        # code...
+                        $is_liked = TRUE;
+                    }
 
-                //     if ($db->query('SELECT id from comments where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
-                //         # code...
-                //         $is_commented = TRUE;
-                //     }
+                    if ($db->query('SELECT id from comments where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
+                        # code...
+                        $is_commented = TRUE;
+                    }
 
-                //     if ($db->query('SELECT id from shared_posts where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
-                //         # code...
-                //         $is_shared = TRUE;
-                //     }
+                    if ($db->query('SELECT id from shared_posts where post_id = :post_id and user_id = :user_id', array(':post_id' => $post['id'], ':user_id' => $user_id))) {
+                        # code...
+                        $is_shared = TRUE;
+                    }
 
-                //     // $response .= "{";
-                //     // $response .= '"Username ": "'.$username.'",';
-                //     $response .= '"PostId": ' . $post['id'] . ',';
-                //     $response .= '"PostBody": "' . $post['body'] . '",';
-                //     $response .= '"PostIsLiked": "' . $is_liked . '",';
-                //     $response .= '"PostIsCommented": "' . $is_commented . '",';
-                //     $response .= '"PostIsShared": "' . $is_shared . '",';
-                //     $response .= '"PostLikes": ' . $post['likes'] . ',';
-                //     $response .= '"PostShares": ' . $post['shares'] . ',';
-                //     $response .= '"PostComments": ' . $post['comments'] . ',';
-                //     $response .= '"PostTopic": "' . $post['topic_name'] . '",';
-                //     $response .= '"PostType": "' . $post['type_name'] . '",';
-                //     $response .= '"PostedById": ' . $post_owner_id . ',';
-                //     $response .= '"PostedByName": "' . $post_owner_name . '",';
-                //     $response .= '"PostedByImg": "' . $post_owner_img . '",';
-                //     $response .= '"SharedByName": "You",';
-                //     $response .= '"SharedById": "' . $user_id . '",';
-                //     $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
-                //     $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
-                //     $response .= '"PostedAt": ' . $post['posted_at'] . '';
-                //     $response .= "}";
-                //     $response .= ",";
-                // }
+                    // $response .= "{";
+                    // $response .= '"Username ": "'.$username.'",';
+                    $response .= '"PostId": ' . $post['id'] . ',';
+                    $response .= '"PostBody": "' . $post['body'] . '",';
+                    $response .= '"PostIsLiked": "' . $is_liked . '",';
+                    $response .= '"PostIsCommented": "' . $is_commented . '",';
+                    $response .= '"PostIsShared": "' . $is_shared . '",';
+                    $response .= '"PostLikes": ' . $post['likes'] . ',';
+                    $response .= '"PostShares": ' . $post['shares'] . ',';
+                    $response .= '"PostComments": ' . $post['comments'] . ',';
+                    $response .= '"PostTopic": "' . $post['topic_name'] . '",';
+                    $response .= '"PostType": "' . $post['type_name'] . '",';
+                    $response .= '"PostedById": ' . $post_owner_id . ',';
+                    $response .= '"PostedByName": "' . $post_owner_name . '",';
+                    $response .= '"PostedByImg": "' . $post_owner_img . '",';
+                    $response .= '"SharedByName": "You",';
+                    $response .= '"SharedById": "' . $user_id . '",';
+                    $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
+                    $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
+                    $response .= '"PostedAt": ' . $post['posted_at'] . '';
+                    $response .= "}";
+                    $response .= ",";
+                }
 
                 // posts shared by a user the user is following
                 else if (($post_owner_id != $user_id) && ($post_owner_id != $post['user_id'])) {
@@ -507,7 +530,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $response .= '"ProfileImg": "' . $profile_img . '"},';
         }
 
-        $topic_posts = $db->query('SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, users.username, posts.posted_at, topics.topic_name, post_types.type_name from topics, post_types, posts, following_topics, users where posts.type_id = post_types.id and posts.topic_id = topics.id and following_topics.topic_id = topics.id and users.id = following_topics.user_id and users.id = :user_id order by posts.posted_at desc', array(':user_id' => $user_id));
+        // $topic_posts = $db->query('SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, users.username, posts.posted_at, topics.topic_name, post_types.type_name from topics, post_types, posts, following_topics, users where posts.type_id = post_types.id and posts.topic_id = topics.id and following_topics.topic_id = topics.id and users.id = following_topics.user_id and users.id = :user_id order by posts.posted_at desc', array(':user_id' => $user_id));
+
+        // if ($topic_posts) {
+        //     foreach ($topic_posts as $t_post) {
+        //         # code...
+        //         $post_owner_id = $db->query('SELECT user_id from posts where id = :post_id', array(':post_id' => $t_post['id']))[0]['user_id'];
+
+        //         $post_owner_name = $db->query('SELECT username from users where id = :id', array(':id' => $post_owner_id))[0]['username'];
+
+        //         $post_owner_designation = $db->query('SELECT designations.designation_name from designations, users where users.designation_id = designations.id and users.id = :user_id', array(':user_id' => $post_owner_id))[0]['designation_name'];
+
+        //         $post_owner_institution = $db->query('SELECT institutions.institution_name from institutions, users where users.institution_id = institutions.id and users.id = :user_id', array(':user_id' => $post_owner_id))[0]['institution_name'];
+
+        //         $post_owner_profile_img = $db->query('SELECT profileimg from users where id = :id', array('id' => $post_owner_id))[0]['profileimg'];
+
+        //         $is_liked = FALSE;
+
+        //         $is_commented = FALSE;
+
+        //         $is_shared = FALSE;
+
+        //         if ($db->query('SELECT id from post_likes where post_id = :post_id and user_id = :user_id', array(':post_id' => $t_post['id'], ':user_id' => $user_id))) {
+        //             # code...
+        //             $is_liked = TRUE;
+        //         }
+
+        //         if ($db->query('SELECT id from comments where post_id = :post_id and user_id = :user_id', array(':post_id' => $t_post['id'], ':user_id' => $user_id))) {
+        //             # code...
+        //             $is_commented = TRUE;
+        //         }
+
+        //         if ($db->query('SELECT id from shared_posts where post_id = :post_id and user_id = :user_id', array(':post_id' => $t_post['id'], ':user_id' => $user_id))) {
+        //             # code...
+        //             $is_shared = TRUE;
+        //         }
+
+        //         $escaped = array("\r\n", "\n", "\r");
+
+        //         $break = '<br/>';
+
+        //         $t_post['body'] = str_replace($escaped, $break, $t_post['body']);
+
+        //         $response .= "{";
+        //         $response .= '"PostId": ' . $t_post['id'] . ',';
+        //         $response .= '"PostBody": "' . $t_post['body'] . '",';
+        //         $response .= '"PostIsLiked": "' . $is_liked . '",';
+        //         $response .= '"PostIsCommented": "' . $is_commented . '",';
+        //         $response .= '"PostIsShared": "' . $is_shared . '",';
+        //         $response .= '"PostLikes": ' . $t_post['likes'] . ',';
+        //         $response .= '"PostShares": ' . $t_post['shares'] . ',';
+        //         $response .= '"PostComments": ' . $t_post['comments'] . ',';
+        //         $response .= '"PostTopic": "' . $t_post['topic_name'] . '",';
+        //         $response .= '"PostType": "' . $t_post['type_name'] . '",';
+        //         $response .= '"PostedById": ' . $post_owner_id . ',';
+        //         $response .= '"PostedByName": "' . $post_owner_name . '",';
+        //         $response .= '"PostedByImg": "' . $post_owner_profile_img . '",';
+        //         $response .= '"PostedByDesignation": "' . $post_owner_designation . '",';
+        //         $response .= '"PostedByInstitution": "' . $post_owner_institution . '",';
+        //         $response .= '"PostedAt": ' . $t_post['posted_at'] . ',';
+        //         $response .= '"Category": "topic"';
+        //         $response .= "}";
+        //         $response .= ",";
+        //     }
+        // }
+
+        $response = substr($response, 0, strlen($response) - 1);
+        $response .= "]";
+
+        echo $response;
+    } elseif ($_GET['url'] == 'timeline_subjects') {
+        $start = (int) $_GET['start'];
+
+        $user_id = $_GET['user_id'];
+
+        $topic_posts = $db->query('SELECT posts.id, posts.body, posts.likes, posts.comments, posts.shares, posts.user_id, users.username, posts.posted_at, topics.topic_name, post_types.type_name from topics, post_types, posts, following_topics, users where posts.type_id = post_types.id and posts.topic_id = topics.id and following_topics.topic_id = topics.id and users.id = following_topics.user_id and users.id = :user_id order by posts.posted_at desc LIMIT 10 offset ' . $start . '', array(':user_id' => $user_id));
+
+        $response = "[";
 
         if ($topic_posts) {
             foreach ($topic_posts as $t_post) {
@@ -570,11 +669,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $response .= "}";
                 $response .= ",";
             }
+        } else {
+            $response .= '{"nothing" : "nothing"},';
         }
 
         $response = substr($response, 0, strlen($response) - 1);
         $response .= "]";
-
         echo $response;
     } elseif ($_GET['url'] == 'profile' && isset($_GET['username'])) {
         # code...
@@ -1522,16 +1622,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         echo $response;
     } elseif ($_GET['url'] == 'emails' && isset($_GET['email'])) {
 
-        if ($db->query('SELECT id from users where email = :email', array(':email' => $_GET['email']))) {
+        if ($db->query('SELECT id from users where email = :email and active = 1', array(':email' => $_GET['email']))) {
             echo "email in use";
         } else {
             echo "email available";
         }
     } elseif ($_GET['url'] == 'usernames' && isset($_GET['username'])) {
 
-        if ($db->query('SELECT id from users where username = :username', array(':username' => $_GET['username']))) {
+        if ($db->query('SELECT id from users where username = :username and active = 1', array(':username' => $_GET['username']))) {
             echo "username unavailable";
         } else {
+            if ($db->query('SELECT id from users where username = :username', array(':username' => $_GET['username']))) {
+                # code...
+                $db->query('DELETE from users where username = :username', array(':username' => $_GET['username']));
+            }
             echo "username available";
         }
     }
@@ -1615,20 +1719,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $designation = $db->query('SELECT id from designations where designation_name = :designation_name', array(':designation_name' => $designation))[0]['id'];
 
-        $db->query('INSERT INTO users VALUES (\'\',:username, :password, :email, 1, \'\', \'\', :institution, :designation, unix_timestamp(), :specialty)', array(':username' => $username, ':password' => password_hash($password1, PASSWORD_BCRYPT), ':email' => $email, ':institution' => $institution, ':designation' => $designation, ':specialty' => $specialty)); //query  to insert the user input into the database, if all validation constraints pass
+        $db->query('INSERT INTO users VALUES (\'\',:username, :password, :email, 0, \'\', \'\', :institution, :designation, unix_timestamp(), :specialty)', array(':username' => $username, ':password' => password_hash($password1, PASSWORD_BCRYPT), ':email' => $email, ':institution' => $institution, ':designation' => $designation, ':specialty' => $specialty)); //query  to insert the user input into the database, if all validation constraints pass
 
-        // Mail::send_mail("Welcome to Kenya Scholars", "Your account was created successfuly!", $email);
+        $user_id = $db->query('SELECT id from users where username = :username', array(':username' => $username))[0]['id'];
 
-        $new_user_id = $db->query('SELECT id from users order by joined_date desc limit 1')[0]['id'];
-
-        echo '{"Id":"' . $new_user_id . '"}';
+        echo '{"Id":"' . $user_id . '"}';
         http_response_code(200);
 
         //assign a login token to the new user
         $cstrong = True;
         $token = bin2hex(openssl_random_pseudo_bytes(64, $cstrong));
 
-        $db->query('INSERT into login_tokens values (\'\', :token, :user_id)', array(':token' => sha1($token), ':user_id' => $new_user_id));
+        $db->query('INSERT into login_tokens values (\'\', :token, :user_id)', array(':token' => sha1($token), ':user_id' => $user_id));
 
         setcookie("SNID", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, True);
 

@@ -283,6 +283,15 @@ function get_comments(post_id, user_id) {
     })
 }
 
+//redirect to user profile
+function get_profile(username, logged_in) {
+    if (username == "You") {
+        return '"window.location.href=\'profile1.php?username=' + logged_in + '\'"';
+    } else {
+        return '"window.location.href=\'profile1.php?username=' + username + '\'"';
+    }
+}
+
 //the guy who deletes posts is this one
 function delete_post(post_id) {
 

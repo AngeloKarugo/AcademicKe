@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2020 at 10:05 PM
+-- Generation Time: Jun 12, 2020 at 09:56 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.1.30
 
@@ -93,7 +93,12 @@ INSERT INTO `comments` (`id`, `comment`, `user_id`, `posted_at`, `post_id`) VALU
 (157, '%3Cb%3Etest%3C%2Fb%3E', 29, 1589553356, 39),
 (158, '%3Cb%3Etest%3C%2Fb%3E', 29, 1589553389, 39),
 (159, '%3Cb%3Etest%3C%2Fb%3E', 29, 1589553776, 39),
-(161, '%3Cinput%20type%20%3D%20%22file%22%2F%3E', 29, 1589554283, 39);
+(161, '%3Cinput%20type%20%3D%20%22file%22%2F%3E', 29, 1589554283, 39),
+(168, 'testing%20responses', 1, 1591420939, 38),
+(169, 'hi%20Pink%2C%20im%20angelo%20%3A))', 1, 1591421184, 35),
+(170, 'ehh%20its%20been%20bleak', 1, 1591421251, 38),
+(171, 'some%20kenyan%20music%20%3B)', 1, 1591421280, 38),
+(172, 'why%20tho\'%0Ahaha', 1, 1591421584, 11);
 
 -- --------------------------------------------------------
 
@@ -116,7 +121,7 @@ INSERT INTO `comment_ratings` (`id`, `comment_id`, `user_id`, `rating`) VALUES
 (1, 29, 1, 1),
 (2, 30, 1, 4),
 (3, 30, 1, 4),
-(4, 31, 1, 6),
+(4, 31, 1, 7),
 (5, 22, 1, 8),
 (6, 20, 1, 10),
 (7, 0, 1, 0),
@@ -131,7 +136,11 @@ INSERT INTO `comment_ratings` (`id`, `comment_id`, `user_id`, `rating`) VALUES
 (16, 31, 29, 1),
 (17, 29, 29, 9),
 (18, 30, 29, 10),
-(19, 95, 29, 8);
+(19, 95, 29, 8),
+(21, 104, 1, 7),
+(22, 170, 1, 8),
+(23, 168, 1, 7),
+(24, 171, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -181,9 +190,14 @@ INSERT INTO `followers` (`id`, `user_id`, `follower_id`) VALUES
 (118, 16, 29),
 (121, 1, 29),
 (122, 8, 29),
-(129, 29, 1),
 (134, 8, 1),
-(135, 16, 1);
+(135, 16, 1),
+(137, 1, 31),
+(142, 31, 35),
+(143, 1, 35),
+(144, 14, 35),
+(145, 32, 35),
+(146, 30, 35);
 
 -- --------------------------------------------------------
 
@@ -208,7 +222,12 @@ INSERT INTO `following_topics` (`id`, `user_id`, `topic_id`) VALUES
 (89, 29, 5),
 (97, 29, 8),
 (100, 29, 3),
-(136, 1, 8);
+(136, 1, 8),
+(150, 35, 7),
+(151, 35, 6),
+(152, 35, 9),
+(153, 35, 8),
+(154, 35, 5);
 
 -- --------------------------------------------------------
 
@@ -231,7 +250,11 @@ INSERT INTO `institutions` (`id`, `institution_name`) VALUES
 (4, 'institutionTestPink'),
 (5, 'Pwani University'),
 (6, 'kenyatta university'),
-(7, 'jomo kenyatta university of agriculture and technology');
+(7, 'jomo kenyatta university of agriculture and technology'),
+(8, 'Kenyatta University'),
+(9, 'United States International University'),
+(10, 'Strathmore University'),
+(11, 'Moi University');
 
 -- --------------------------------------------------------
 
@@ -296,7 +319,19 @@ INSERT INTO `login_tokens` (`id`, `token`, `user_id`) VALUES
 (155, '846d706cb2e3cf5834951993ff9b9a5fd13624af', 1),
 (156, 'c08e3b54b00ea9ca22799ef565aa149510d7fc22', 11),
 (159, '6da1a47e2c15bf8754127823938692577e26c0ca', 1),
-(161, 'e445b0b4dbd1d40f209cab87975846044cc714ff', 1);
+(162, 'b4ddd599439d6b0861f36ac58994fdd3ae6640a1', 29),
+(164, 'ca24ae6c77186e3163d3b229d0d7db5fe5c319ff', 11),
+(165, 'c533f9f955c3e4c4fbe99b4a71b99828cf92acb5', 1),
+(166, '06fb0ab7c40befe6f910d6069ce40d745d530204', 30),
+(168, '08fc47e8d0ff8d6cf658faaede224542e241ed29', 11),
+(169, '263820eadbd7fa9dd803dc28deb09e8c0e89f3b5', 29),
+(170, '5ad2921939f2a33fc2b65658a8639e6069283806', 11),
+(171, 'e74ab5835c454801806fb4f8852c2728c98f2ed4', 1),
+(172, '56495bcbb9f6760b833e279bd0a35b796c934e7e', 32),
+(173, 'e217adffd9d974d1f68db0421dc8a9a3f157ab7d', 33),
+(174, 'b76b60b6ec1b1a97465e26cce96887e071a74a05', 34),
+(175, '1d39b7996862f3008f647b2752d04e82f62612e8', 35),
+(176, '9d90f75149cab018f73db75f8af73e2c3d55062c', 1);
 
 -- --------------------------------------------------------
 
@@ -335,7 +370,6 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `receiver_id`, `sender_id`, `post_id`, `comment_id`, `seen`, `created_at`) VALUES
 (56, 1, 29, 29, 95, NULL, 1, 1589879180),
-(57, 7, 29, 1, 0, NULL, 1, 1589890401),
 (58, 7, 16, 29, 0, NULL, 0, 1589910529),
 (59, 7, 16, 29, 0, NULL, 0, 1589910596),
 (60, 7, 16, 29, 0, NULL, 0, 1589910601),
@@ -420,87 +454,16 @@ INSERT INTO `notifications` (`id`, `type`, `receiver_id`, `sender_id`, `post_id`
 (140, 7, 14, 1, 0, NULL, 0, 1589975669),
 (141, 7, 14, 1, 0, NULL, 0, 1589975672),
 (142, 7, 14, 1, 0, NULL, 0, 1589975675),
-(143, 1, 29, 1, 95, NULL, 1, 1589988500),
 (144, 2, 29, 1, 95, NULL, 1, 1589988524),
 (145, 3, 16, 1, 35, NULL, 0, 1589988606),
 (146, 3, 16, 1, 35, NULL, 0, 1589988609),
 (147, 3, 8, 1, 5, NULL, 0, 1589989039),
 (148, 3, 29, 1, 95, NULL, 1, 1589989075),
 (149, 1, 1, 11, 10, NULL, 1, 1590050530),
-(150, 1, 29, 1, 95, NULL, 0, 1590143830),
-(151, 1, 29, 1, 84, NULL, 0, 1590144702),
-(152, 1, 29, 1, 87, NULL, 0, 1590144704),
-(153, 3, 29, 1, 85, NULL, 0, 1590144773),
-(154, 3, 29, 1, 85, NULL, 0, 1590144775),
-(155, 1, 8, 1, 4, NULL, 0, 1590334555),
-(156, 1, 29, 1, 95, NULL, 0, 1590334834),
-(157, 1, 29, 1, 95, NULL, 0, 1590334834),
-(158, 1, 29, 1, 95, NULL, 0, 1590334834),
-(159, 1, 29, 1, 95, NULL, 0, 1590334834),
-(160, 1, 29, 1, 95, NULL, 0, 1590334834),
-(161, 1, 29, 1, 95, NULL, 0, 1590334834),
-(162, 1, 29, 1, 95, NULL, 0, 1590334835),
-(163, 1, 29, 1, 95, NULL, 0, 1590334835),
-(164, 1, 29, 1, 95, NULL, 0, 1590334835),
-(165, 1, 29, 1, 95, NULL, 0, 1590334835),
-(166, 1, 29, 1, 95, NULL, 0, 1590334835),
-(167, 1, 29, 1, 95, NULL, 0, 1590334835),
-(168, 1, 29, 1, 95, NULL, 0, 1590334835),
-(169, 1, 29, 1, 95, NULL, 0, 1590334835),
-(170, 1, 29, 1, 95, NULL, 0, 1590334835),
-(171, 1, 29, 1, 95, NULL, 0, 1590334835),
-(172, 1, 29, 1, 95, NULL, 0, 1590334835),
-(173, 1, 29, 1, 95, NULL, 0, 1590334836),
-(174, 1, 29, 1, 95, NULL, 0, 1590334836),
-(175, 1, 29, 1, 95, NULL, 0, 1590334836),
-(176, 1, 29, 1, 95, NULL, 0, 1590334836),
-(177, 1, 29, 1, 95, NULL, 0, 1590334836),
-(178, 1, 29, 1, 95, NULL, 0, 1590334836),
-(179, 1, 29, 1, 95, NULL, 0, 1590334836),
-(180, 1, 29, 1, 95, NULL, 0, 1590334836),
-(181, 1, 29, 1, 95, NULL, 0, 1590334836),
-(182, 1, 29, 1, 95, NULL, 0, 1590334836),
-(183, 1, 29, 1, 95, NULL, 0, 1590334836),
-(184, 1, 29, 1, 95, NULL, 0, 1590334837),
-(185, 1, 29, 1, 95, NULL, 0, 1590334837),
-(186, 1, 29, 1, 95, NULL, 0, 1590334837),
-(187, 1, 29, 1, 95, NULL, 0, 1590334837),
-(188, 1, 29, 1, 95, NULL, 0, 1590334837),
-(189, 1, 29, 1, 95, NULL, 0, 1590334838),
-(190, 1, 29, 1, 95, NULL, 0, 1590334838),
-(191, 1, 29, 1, 95, NULL, 0, 1590334838),
-(192, 1, 29, 1, 95, NULL, 0, 1590334838),
-(193, 1, 29, 1, 95, NULL, 0, 1590334838),
-(194, 1, 29, 1, 95, NULL, 0, 1590334838),
-(195, 1, 29, 1, 95, NULL, 0, 1590334838),
-(196, 1, 29, 1, 95, NULL, 0, 1590334838),
-(197, 1, 29, 1, 95, NULL, 0, 1590334838),
-(198, 1, 29, 1, 95, NULL, 0, 1590334838),
-(199, 1, 29, 1, 95, NULL, 0, 1590334838),
-(200, 1, 29, 1, 95, NULL, 0, 1590334839),
-(201, 1, 29, 1, 95, NULL, 0, 1590334839),
-(202, 1, 29, 1, 95, NULL, 0, 1590334854),
-(203, 1, 29, 1, 95, NULL, 0, 1590334854),
-(204, 1, 29, 1, 95, NULL, 0, 1590334854),
-(205, 1, 29, 1, 95, NULL, 0, 1590334854),
-(206, 1, 29, 1, 95, NULL, 0, 1590334854),
-(207, 1, 29, 1, 95, NULL, 0, 1590334854),
-(208, 1, 29, 1, 95, NULL, 0, 1590334854),
-(209, 1, 29, 1, 95, NULL, 0, 1590334854),
-(210, 1, 29, 1, 95, NULL, 0, 1590334855),
-(211, 1, 29, 1, 95, NULL, 0, 1590334855),
-(212, 1, 29, 1, 95, NULL, 0, 1590334855),
-(213, 1, 29, 1, 95, NULL, 0, 1590334855),
-(214, 1, 29, 1, 95, NULL, 0, 1590334855),
-(215, 1, 29, 1, 95, NULL, 0, 1590334855),
-(216, 1, 29, 1, 95, NULL, 0, 1590334855),
-(217, 1, 29, 1, 95, NULL, 0, 1590334856),
-(218, 1, 29, 1, 95, NULL, 0, 1590334856),
-(219, 1, 29, 1, 95, NULL, 0, 1590334856),
-(220, 1, 29, 1, 95, NULL, 0, 1590334856),
-(221, 1, 29, 1, 95, NULL, 0, 1590334883),
-(222, 1, 29, 1, 95, NULL, 0, 1590334885),
-(223, 1, 29, 1, 95, NULL, 0, 1590334896),
+(151, 1, 29, 1, 84, NULL, 1, 1590144702),
+(152, 1, 29, 1, 87, NULL, 1, 1590144704),
+(153, 3, 29, 1, 85, NULL, 1, 1590144773),
+(154, 3, 29, 1, 85, NULL, 1, 1590144775),
 (224, 3, 8, 1, 4, NULL, 0, 1590752649),
 (225, 3, 8, 1, 4, NULL, 0, 1590752649),
 (226, 3, 8, 1, 4, NULL, 0, 1590752649),
@@ -540,10 +503,23 @@ INSERT INTO `notifications` (`id`, `type`, `receiver_id`, `sender_id`, `post_id`
 (260, 3, 8, 1, 36, NULL, 0, 1590752789),
 (261, 3, 16, 1, 35, NULL, 0, 1590752796),
 (262, 3, 16, 1, 35, NULL, 0, 1590752799),
-(263, 7, 29, 1, 0, NULL, 0, 1590758675),
-(264, 7, 29, 1, 0, NULL, 0, 1590758681),
 (269, 7, 8, 1, 0, NULL, 0, 1591169962),
-(270, 7, 16, 1, 0, NULL, 0, 1591169964);
+(270, 7, 16, 1, 0, NULL, 0, 1591169964),
+(272, 1, 8, 1, 4, NULL, 0, 1591418649),
+(273, 2, 8, 1, 38, 168, 0, 1591420939),
+(274, 2, 16, 1, 35, 169, 0, 1591421184),
+(275, 2, 8, 1, 38, 170, 0, 1591421251),
+(276, 2, 8, 1, 38, 171, 0, 1591421280),
+(279, 7, 1, 31, 0, NULL, 1, 1591518017),
+(284, 7, 31, 35, 0, NULL, 0, 1591702759),
+(285, 7, 1, 35, 0, NULL, 1, 1591702955),
+(286, 7, 14, 35, 0, NULL, 0, 1591702957),
+(287, 7, 32, 35, 0, NULL, 0, 1591702960),
+(288, 7, 30, 35, 0, NULL, 0, 1591702962),
+(293, 3, 8, 1, 38, NULL, 0, 1591818050),
+(294, 1, 8, 1, 38, NULL, 0, 1591818053),
+(297, 1, 16, 1, 35, NULL, 0, 1591867795),
+(298, 1, 16, 1, 35, NULL, 0, 1591867795);
 
 -- --------------------------------------------------------
 
@@ -598,18 +574,18 @@ CREATE TABLE `posts` (
 
 INSERT INTO `posts` (`id`, `body`, `posted_at`, `user_id`, `likes`, `comments`, `shares`, `postimg`, `topic_id`, `type_id`) VALUES
 (1, 'hello world', 1587843659, 1, 1, 0, 2, '', 1, 14),
-(2, 'im angelo', 1587843659, 1, 2, 0, 1, '', 1, 14),
+(2, 'im angelo', 1587843659, 1, 3, 0, 1, '', 1, 14),
 (4, 'ones and twos', 1587843659, 8, 1, 1, 0, '', 1, 14),
 (5, 'how do you do? eeh?', 1587843659, 8, 1, 3, 1, '', 1, 14),
-(10, 'working on my project', 1587843659, 1, 1, 1, 0, '', 3, 14),
-(11, 'This post has been removed due to abuse of site policies.', 1587843659, 1, 1, 0, 0, '', 1, 14),
+(10, 'working on my project', 1587843659, 1, 2, 1, 0, '', 3, 14),
+(11, 'This post has been removed due to abuse of site policies.', 1587843659, 1, 1, 1, 0, '', 1, 14),
 (20, 'This post has been removed due to abuse of site policies.', 1587843659, 1, 0, 0, 0, '', 1, 14),
 (25, 'This post has been removed due to abuse of site policies.', 1587843659, 1, 1, 0, 0, '', 1, 14),
 (32, 'what is the molecular mass of nitrogen?', 1587843659, 1, 1, 2, 1, '', 1, 14),
-(35, 'hello, im pink', 1587843659, 16, 2, 0, 2, '', 1, 14),
+(35, 'hello, im pink', 1587843659, 16, 2, 1, 2, '', 1, 14),
 (36, 'index page unshared following post test #1', 1587843659, 8, 1, 1, 0, '', 1, 14),
 (37, 'index post unshared user post test #1', 1587843659, 1, 3, 4, 0, '', 1, 14),
-(38, 'how has the coronavirus affected your life?', 1588954140, 8, 1, 10, 0, '', 5, 9),
+(38, 'how has the coronavirus affected your life?', 1588954140, 8, 2, 11, 1, '', 5, 9),
 (39, 'Im confused by the difference between atomic and mass number. Anyone who can help around here??', 1589529086, 29, 1, 35, 1, '', 6, 14),
 (44, 'te%0D%0A%0D%0Ast', 1589562244, 29, 0, 0, 0, '', 7, 14),
 (45, 'te%0D%0A%0D%0Ast', 1589562418, 29, 0, 0, 0, '', 7, 14),
@@ -653,7 +629,10 @@ INSERT INTO `posts` (`id`, `body`, `posted_at`, `user_id`, `likes`, `comments`, 
 (95, 'This post has been removed due to abuse of site policies.', 1589789992, 29, 29, 1, 0, '', 8, 14),
 (98, 'time test', 1590341425, 1, 0, 0, 0, '', 1, 14),
 (99, 'time + file test', 1590341607, 1, 0, 0, 0, '', 1, 14),
-(100, 'i Just read a really good article, id like to share with everybody here', 1590561897, 1, 0, 0, 0, '', 9, 11);
+(100, 'i Just read a really good article, id like to share with everybody here', 1590561897, 1, 0, 0, 0, '', 9, 11),
+(107, 'New to di ting', 1591518139, 31, 0, 0, 0, '', 3, 14),
+(109, 'test\r\npost', 1591704340, 1, 0, 0, 0, '', 1, 14),
+(110, 'test\r\n\r\npost', 1591704483, 1, 1, 0, 0, '', 3, 14);
 
 -- --------------------------------------------------------
 
@@ -677,14 +656,22 @@ INSERT INTO `post_likes` (`id`, `post_id`, `user_id`) VALUES
 (172, 11, 8),
 (175, 14, 8),
 (179, 2, 8),
-(582, 35, 1),
-(595, 37, 1),
 (619, 25, 8),
 (621, 36, 8),
 (626, 37, 29),
 (652, 91, 29),
 (653, 89, 29),
-(664, 4, 1);
+(742, 4, 1),
+(756, 38, 1),
+(762, 110, 1),
+(767, 37, 1),
+(768, 37, 1),
+(771, 35, 1),
+(772, 35, 1),
+(773, 2, 1),
+(774, 2, 1),
+(777, 10, 1),
+(778, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -731,7 +718,8 @@ INSERT INTO `reports` (`id`, `report_statement`, `date`, `post_id`, `user_id`, `
 (4, 'incorrect topic', 1587843726, 20, 8, 'reactivated', 1590072285),
 (5, 'abusive language', 1587843726, 11, 8, 'reactivated', 1590072288),
 (6, 'racial comments', 1587843726, 25, 8, 'reactivated', 1590072291),
-(8, 'wrong%20topic', 1589995534, 95, 1, 'reactivated', 1590072296);
+(8, 'wrong%20topic', 1589995534, 95, 1, 'reactivated', 1590072296),
+(9, 'irrelevant%20content', 1591527673, 38, 29, 'deactivated', 1591527796);
 
 -- --------------------------------------------------------
 
@@ -756,7 +744,8 @@ INSERT INTO `shared_posts` (`id`, `date_shared`, `post_id`, `user_id`) VALUES
 (36, 158788, 32, 8),
 (57, 187843868, 1, 8),
 (58, 158784864, 35, 8),
-(94, 1590752645, 0, 1);
+(94, 1590752645, 0, 1),
+(133, 1591818050, 38, 1);
 
 -- --------------------------------------------------------
 
@@ -809,7 +798,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `active`, `super`, `profileimg`, `institution_id`, `designation_id`, `joined_date`, `specialty`) VALUES
 (1, 'Angelo Karugo', '$2y$10$4XmrN.p4C4tJP1qIwBXbFeIdvnIuxEY61pEF.Xz1FNb8eFex46/iG', 'hakarugo2@gmail.com', 1, 0, 'files\\\\profile\\\\img\\\\prof29.JPG', 5, 6, 1587844051, 'Computer Science'),
-(8, 'Charity', '$2y$10$xsiZiO3EQeALDugyzeojeexJZe/Guhq/f2uGSQQ6zoYTZBU21IfQy', 'cwamalwa2@gmail.com', 1, 0, 'files\\\\profile\\\\img\\\\prof28.JPG', 5, 6, 1587844051, 'Literature'),
+(8, 'Charity', '$2y$10$xsiZiO3EQeALDugyzeojeexJZe/Guhq/f2uGSQQ6zoYTZBU21IfQy', 'cwamalwa2@gmail.com', 0, 0, 'files\\\\profile\\\\img\\\\prof28.JPG', 5, 6, 1587844051, 'Literature'),
 (11, 'super', '$2y$10$0m4Ixvt/Pka6wcT9pT.MBuNMmS32rQCXTSeI53hCBKKV9E7ileyIO', 'manager@project.com', 1, 1, '', 1, 1, 1587844051, ''),
 (13, 'Njoki', '$2y$10$4.SDv2kuFNLjxX6l4SXoierknI2frUHHR8BEQZBSxZ63XzZLdEgA2', 'njoki@2.co', 1, 0, '', 1, 1, 1587844051, ''),
 (14, 'Blue', '$2y$10$Aw2MavGQRiBxnoAmCN8lT.WhffWczIluaqt92X5TRH1d/O0CBnisS', 'blue@test.test', 1, 0, '', 1, 1, 1587844051, ''),
@@ -827,7 +816,12 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `active`, `super`, `
 (26, 'Indigo', '$2y$10$L1R1KxPna/3XV32btxhtS.jihldX9rcG6G.VxhAoWGHDTqb.ODh3G', 'indigo@indigo.indigo', 1, 0, '', 0, 0, 1589213167, 'Hospitality'),
 (27, 'Violet', '$2y$10$o3/E2s1/3cOIYELG4xphyODp6v19SGdZHZt2h.6yuGI.FEqjsBt16', 'violet@violet.violet', 1, 0, '', 0, 0, 1589213240, 'Nursing'),
 (28, 'Silver', '$2y$10$kluz23M4XCLPv8YHa5PMKeUAECwB9TtSLg02ILfyE64owjTEKemBm', 'silver@silver.silver', 1, 0, '', 0, 0, 1589214882, 'Astronomy'),
-(29, 'Limes', '$2y$10$4VEptTngey9EiUOQU6afoOb4le4wqfCY0mIIh0ttz28RGmDAql1rK', 'lime@lime.lime', 1, 0, 'files\\\\profile\\\\img\\\\prof29.jpg', 5, 6, 1589215236, 'Literature');
+(29, 'Limes', '$2y$10$4VEptTngey9EiUOQU6afoOb4le4wqfCY0mIIh0ttz28RGmDAql1rK', 'lime@lime.lime', 1, 0, 'files\\\\profile\\\\img\\\\prof29.jpg', 5, 6, 1589215236, 'Literature'),
+(30, 'Guava', '$2y$10$O2BsOvZe8jFAMoHNC9PhyOBhJa1E4PIj0reLM6A1bRZXAN92TjQPy', 'guava.guava@ku.ac.ke', 1, 0, '', 6, 8, 1591514534, 'Mathematics'),
+(31, 'Pineapple', '$2y$10$oqTB.MsTTdLnz18RHBnT7Oy00psMRBgAJ95HqaCfPj0d7EChBpLY2', 'pineapple@pu.ac.ke', 1, 0, '', 5, 6, 1591515009, 'Mathematics'),
+(32, 'Gloss', '$2y$10$siYKFhQBjueCvAck6F9dyOIapb3qtb2MiSB2..Qhf/yIvAM4FhNE.', 'gloss.gloss@usiu.ac.ke', 1, 0, '', 9, 6, 1591702042, 'Mathematics'),
+(33, 'Watermelon', '$2y$10$.F/zO1.DUa7oaEkhJN7mMOtlft2EWpceJXoaVw2sIfgBYMeBRgI8.', 'watermelon@strathmore.ac.ke', 1, 0, '', 10, 6, 1591702132, 'Mathematics'),
+(35, 'Mango', '$2y$10$vvsA1rCFLESdLH4v5NRK9.w5yGAcygvQvxSfgy4Ggj2wSoKyOFO8q', 'mango@jkuat.ac.ke', 1, 0, 'files\\\\profile\\\\img\\\\prof35.JPG', 7, 7, 1591702730, 'Mathematics');
 
 --
 -- Indexes for dumped tables
@@ -946,13 +940,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `comment_ratings`
 --
 ALTER TABLE `comment_ratings`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `designations`
@@ -964,25 +958,25 @@ ALTER TABLE `designations`
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `following_topics`
 --
 ALTER TABLE `following_topics`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT for table `institutions`
 --
 ALTER TABLE `institutions`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `login_tokens`
 --
 ALTER TABLE `login_tokens`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -994,7 +988,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
 
 --
 -- AUTO_INCREMENT for table `password_tokens`
@@ -1006,13 +1000,13 @@ ALTER TABLE `password_tokens`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `post_likes`
 --
 ALTER TABLE `post_likes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=742;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=784;
 
 --
 -- AUTO_INCREMENT for table `post_types`
@@ -1024,13 +1018,13 @@ ALTER TABLE `post_types`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `shared_posts`
 --
 ALTER TABLE `shared_posts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `topics`
@@ -1042,7 +1036,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
