@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2020 at 09:56 AM
+-- Generation Time: Jun 18, 2020 at 02:34 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.1.30
 
@@ -197,7 +197,12 @@ INSERT INTO `followers` (`id`, `user_id`, `follower_id`) VALUES
 (143, 1, 35),
 (144, 14, 35),
 (145, 32, 35),
-(146, 30, 35);
+(146, 30, 35),
+(147, 29, 1),
+(148, 1, 55),
+(149, 35, 55),
+(150, 8, 55),
+(151, 1, 61);
 
 -- --------------------------------------------------------
 
@@ -227,7 +232,9 @@ INSERT INTO `following_topics` (`id`, `user_id`, `topic_id`) VALUES
 (151, 35, 6),
 (152, 35, 9),
 (153, 35, 8),
-(154, 35, 5);
+(154, 35, 5),
+(155, 55, 5),
+(156, 55, 7);
 
 -- --------------------------------------------------------
 
@@ -331,7 +338,37 @@ INSERT INTO `login_tokens` (`id`, `token`, `user_id`) VALUES
 (173, 'e217adffd9d974d1f68db0421dc8a9a3f157ab7d', 33),
 (174, 'b76b60b6ec1b1a97465e26cce96887e071a74a05', 34),
 (175, '1d39b7996862f3008f647b2752d04e82f62612e8', 35),
-(176, '9d90f75149cab018f73db75f8af73e2c3d55062c', 1);
+(176, '9d90f75149cab018f73db75f8af73e2c3d55062c', 1),
+(177, '22b2cc33d482a6321dafab624f78839c75ce7798', 1),
+(178, '05fb4593f7d40004b9786d21ea008cf65a4539cd', 1),
+(179, 'cb523ceed2cc4ca3c7c15ea2336184d8ea0ac042', 36),
+(180, '741dcef441cd616e8239dcc80323a96500cc589c', 37),
+(181, 'a03b993771825f242cc9a610a4240195c41365af', 38),
+(182, 'd86117ed62a678d156fa1b64902f499f1f051a62', 39),
+(183, 'd2bff2afa2c8d69d12535e22bddbeac0032e8cca', 40),
+(184, '542f26a79b2ce175942bafcf130857c73bb80e92', 41),
+(185, 'fe34ea4e8cc1d6c811053bec0aecddcd1205bf3c', 41),
+(186, '4be205da7564351de008c62c06470bdadefe398f', 41),
+(187, '197558d081f25d1c3548a7c38bde1848dfe7e48e', 44),
+(188, 'eb62388549938a3ac87c8f4b3e4a12617f8f9374', 45),
+(189, '69ec0f38a42f83b59d9fba78926c20fbcb81abcc', 46),
+(190, '63dbeec0e88e53cf8bf25c5fd6acb511915a1a1f', 47),
+(191, '44c0fc953e55fdd1b5132cf41a093b96b6ea5b41', 48),
+(192, 'dc0fd44ed4326eee586dd5b201d171d150aa8260', 49),
+(193, 'e9f02f1f0d780952450104211a0c5d6a26fc8f3a', 50),
+(194, '4ddce91f5d802517d49aeed36470eb1cb11e1a29', 51),
+(195, '7b16e79fbe3bba696b897ffeab849151ffbd7e10', 52),
+(196, '7e50faa08678d022908d9d9a93e4f187a54fc9f6', 53),
+(197, 'd583822a60597b27833562c737eaf5d61e42914f', 54),
+(198, '6a4bea24d17c862ec344d155f071986e9927f47e', 55),
+(199, '37290b048e6da4e41277514e73050fa98e3df197', 56),
+(200, '05af0063d06aaa6bdd8284ccfbc6e5001befa58b', 57),
+(201, '08554af7f84c5ade7601e3e1294613d99d3d77e8', 58),
+(202, '0d2201efd7babb7ca7bd38e9707aacd93f8df42b', 59),
+(203, 'd98f1af9e2f2d5f1fb2f169fc978d40791c6d38c', 60),
+(204, '0c8ac6f3f26ebb0407f3ea477b2f578f852125a7', 61),
+(205, '1b028d17de5590ec30ec386c44189e76bced6766', 1),
+(207, '6947fde177efe1852a9abe1dbb9cae37b8a48a9c', 1);
 
 -- --------------------------------------------------------
 
@@ -517,9 +554,14 @@ INSERT INTO `notifications` (`id`, `type`, `receiver_id`, `sender_id`, `post_id`
 (287, 7, 32, 35, 0, NULL, 0, 1591702960),
 (288, 7, 30, 35, 0, NULL, 0, 1591702962),
 (293, 3, 8, 1, 38, NULL, 0, 1591818050),
-(294, 1, 8, 1, 38, NULL, 0, 1591818053),
 (297, 1, 16, 1, 35, NULL, 0, 1591867795),
-(298, 1, 16, 1, 35, NULL, 0, 1591867795);
+(298, 1, 16, 1, 35, NULL, 0, 1591867795),
+(301, 7, 29, 1, 0, NULL, 0, 1592197872),
+(308, 1, 8, 1, 38, NULL, 0, 1592306988),
+(309, 7, 1, 55, 0, NULL, 1, 1592369320),
+(310, 7, 35, 55, 0, NULL, 0, 1592369324),
+(311, 7, 8, 55, 0, NULL, 0, 1592369339),
+(312, 7, 1, 61, 0, NULL, 1, 1592467663);
 
 -- --------------------------------------------------------
 
@@ -662,7 +704,6 @@ INSERT INTO `post_likes` (`id`, `post_id`, `user_id`) VALUES
 (652, 91, 29),
 (653, 89, 29),
 (742, 4, 1),
-(756, 38, 1),
 (762, 110, 1),
 (767, 37, 1),
 (768, 37, 1),
@@ -671,7 +712,8 @@ INSERT INTO `post_likes` (`id`, `post_id`, `user_id`) VALUES
 (773, 2, 1),
 (774, 2, 1),
 (777, 10, 1),
-(778, 10, 1);
+(778, 10, 1),
+(791, 38, 1);
 
 -- --------------------------------------------------------
 
@@ -821,7 +863,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `active`, `super`, `
 (31, 'Pineapple', '$2y$10$oqTB.MsTTdLnz18RHBnT7Oy00psMRBgAJ95HqaCfPj0d7EChBpLY2', 'pineapple@pu.ac.ke', 1, 0, '', 5, 6, 1591515009, 'Mathematics'),
 (32, 'Gloss', '$2y$10$siYKFhQBjueCvAck6F9dyOIapb3qtb2MiSB2..Qhf/yIvAM4FhNE.', 'gloss.gloss@usiu.ac.ke', 1, 0, '', 9, 6, 1591702042, 'Mathematics'),
 (33, 'Watermelon', '$2y$10$.F/zO1.DUa7oaEkhJN7mMOtlft2EWpceJXoaVw2sIfgBYMeBRgI8.', 'watermelon@strathmore.ac.ke', 1, 0, '', 10, 6, 1591702132, 'Mathematics'),
-(35, 'Mango', '$2y$10$vvsA1rCFLESdLH4v5NRK9.w5yGAcygvQvxSfgy4Ggj2wSoKyOFO8q', 'mango@jkuat.ac.ke', 1, 0, 'files\\\\profile\\\\img\\\\prof35.JPG', 7, 7, 1591702730, 'Mathematics');
+(35, 'Mango', '$2y$10$vvsA1rCFLESdLH4v5NRK9.w5yGAcygvQvxSfgy4Ggj2wSoKyOFO8q', 'mango@jkuat.ac.ke', 1, 0, 'files\\\\profile\\\\img\\\\prof35.JPG', 7, 7, 1591702730, 'Mathematics'),
+(55, 'Berry', '$2y$10$U0Qbz0AjPljaeYUNspcQUeLgo4CVcHFxynb366IdSxRKxfJ0tN7qO', 'sb30pu4176216@pu.ac.ke', 1, 0, 'files\\\\profile\\\\img\\\\prof55.JPG', 5, 6, 1592369233, 'Hospitality'),
+(61, 'Cherry', '$2y$10$RW72NXq2kZxKJom96N.qyObGPnkZGUQj0H2SyT.jtnWqk.jCQDfxK', 'cherry@pu.ac.ke', 1, 0, '', 5, 6, 1592378180, 'Mathematics');
 
 --
 -- Indexes for dumped tables
@@ -958,13 +1002,13 @@ ALTER TABLE `designations`
 -- AUTO_INCREMENT for table `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `following_topics`
 --
 ALTER TABLE `following_topics`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `institutions`
@@ -976,7 +1020,7 @@ ALTER TABLE `institutions`
 -- AUTO_INCREMENT for table `login_tokens`
 --
 ALTER TABLE `login_tokens`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -988,7 +1032,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT for table `password_tokens`
@@ -1006,7 +1050,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `post_likes`
 --
 ALTER TABLE `post_likes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=784;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=792;
 
 --
 -- AUTO_INCREMENT for table `post_types`
@@ -1036,7 +1080,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

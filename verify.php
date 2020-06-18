@@ -22,4 +22,5 @@ if (DB::query('SELECT id from verification_tokens where user_id = :user_id and c
     }
 }
 
-echo "<html><script type='text/javascript'>setTimeout(function () {window.close();}, 2000);</script></html>";
+
+echo "<html><script type='text/javascript'>setTimeout(function () {window.close();}, 12000);</script></html>";

@@ -51,25 +51,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } elseif ($_GET['url'] == 'verify') {
         $user_id = $_GET['user_id'];
 
-        $verified = $db->query('SELECT active from users where id = :id', array(':id' => $user_id))[0]['active'];
+        $user_data = $db->query('SELECT active ,email from users where id = :id', array(':id' => $user_id))[0];
+
+        $email = $user_data['email'];
+        $verified = $user_data['active'];
 
         if (isset($_GET['cancel'])) {
             $db->query('DELETE from users where id = :id', array(':id' => $user_id));
 
             echo "request cancelled";
-        } else {
-            if ($verified == 1) {
-                echo "verified";
-            } else {
+        } else if (!(isset($_GET['check'])) && $verified != 1) {
+
+            if (!($db->query('SELECT id from verification_tokens where user_id = :user_id', array(':user_id' => $user_id)))) {
+
                 //send a verification token to the new user to verify the email
-                $verification_token = bin2hex(openssl_random_pseudo_bytes(64, True));
+                $cs_strong = true;
+                $verification_token = bin2hex(openssl_random_pseudo_bytes(64, $cs_strong));
 
                 $db->query('INSERT into verification_tokens values (\'\', unix_timestamp(), :user_id, :code)', array(':user_id' => $user_id, ':code' => $verification_token));
 
-                Mail::send_mail("Welcome to AcademicKe", "<h3>Your account was created successfuly!</h3><br>Click on<a href='verify.php?user_id=" . $user_id . "&code=" . $verification_token . "> this link </a>to verify your account.<br><br><strong>Warning: </strong>Ignore this email if you did not sign up for an AcademicKe account.", $email);
+                Mail::send_mail($email, "<h3>Your account was created successfuly!</h3><br/>Click on <a href='http://localhost:81/PROJECT_SN/verify.php?user_id=" . $user_id . "&code=" . $verification_token . "'> this link </a> to verify your account.<br/><br/><strong>Warning: </strong>Ignore this email if you did not sign up for an AcademicKe account.", "Welcome to AcademicKe", 'AcademicKe Team');
 
                 echo "not verified";
+            } else {
+                $db->query('DELETE from verification_tokens where user_id = :user_id', array(':user_id' => $user_id));
             }
+        } else if ($verified == 1) {
+            echo "verified";
         }
     } elseif ($_GET['url'] == 'comments' && isset($_GET['post_id'])) {
         # code...
@@ -1316,7 +1324,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         //id for the currently logged in user
         $user_id = $db->query('SELECT user_id from login_tokens where token = :token', array(':token' => sha1($token)))[0]['user_id'];
 
-        $notifications = $db->query('SELECT notifications.id, notifications.sender_id, notifications.receiver_id, notifications.seen, notifications.post_id, notifications.created_at, notification_types.notification_type from notifications, notification_types where notifications.type = notification_types.id and notifications.receiver_id = :receiver_id', array(':receiver_id' => $user_id));
+        $notifications = $db->query('SELECT notifications.id, notifications.sender_id, notifications.receiver_id, notifications.seen, notifications.post_id, notifications.created_at, notification_types.notification_type from notifications, notification_types where notifications.type = notification_types.id and notifications.receiver_id = :receiver_id order by notifications.created_at desc', array(':receiver_id' => $user_id));
 
         $response = "[";
 

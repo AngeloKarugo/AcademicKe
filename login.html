@@ -32,7 +32,7 @@
             <span class="update_response form-group" id="authentication_feedback"></span><br><br>
 
             <div class="form-group">
-                <button class="btn btn-secondary btn-block" id="login" data-bs-hover-animate="wobble" type="button">Log
+                <button class="btn btn-secondary btn-block" id="login" data-bs-hover-animate="pulse" type="button">Log
                     In
                 </button>
             </div>
@@ -71,6 +71,14 @@
             });
 
         });
+
+        $('#username').on('input', function () {
+            $('#authentication_feedback').html('');
+        })
+
+        $('#password').on('input', function () {
+            $('#authentication_feedback').html('');
+        })
     </script>
 </body>
 

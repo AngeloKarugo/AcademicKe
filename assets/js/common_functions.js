@@ -15,12 +15,10 @@ function file_finder(data_attr, PostId) {
 
             if (files.length > 0) {
 
-
-
                 $.each(files, function (i) {
 
                     if (files[i].FileType == "doc") {
-                        console.log("file here" + PostId);
+                        // console.log("file here" + PostId);
 
                         $('[data-' + data_attr + ' = "' + PostId + '"]').html($('[data-' + data_attr + ' = "' + PostId + '"]').html() + '<div class="files_container flex-column d-flex" data-' + data_attr + '_container = "' + PostId + '"><div class="d-flex flex-row file_row" onclick = "window.open(\'' + files[i].FileAddress + '\')"><i class="fa fa-link align-self-center file_icon"></i><span class="file_link "> ' + files[i].FileName + '</span> </div></div>'
                         );
