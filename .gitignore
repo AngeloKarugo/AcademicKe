@@ -4,6 +4,7 @@ admin_dashboard.php
 change_password.php
 create_account.php
 create_post.php
+mail_test.php
 file_upload_testfield.html
 debug.json
 files/

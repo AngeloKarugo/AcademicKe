@@ -449,13 +449,11 @@
 
                         var res = JSON.parse(r);
 
-                        verify(res.Id);
-
                         //to check whether the user has gotten their account verified
-                        get_verified = setInterval(function () {
+                        var get_verified = setInterval(function () {
                             $.ajax({
                                 method: "GET",
-                                url: "REST_api/verify?user_id=" + res.Id,
+                                url: "REST_api/verify?user_id=" + res.Id + "&check",
                                 processData: false,
                                 contentType: "application/json",
                                 data: '',
@@ -477,6 +475,8 @@
                             });
 
                         }, 5000);
+
+                        verify(res.Id, get_verified);
 
                         //when the timer runs out and the user requests a new verification email
                         $('#resend_email').click(function () {
@@ -627,7 +627,7 @@
         }
 
         //verify a new user account
-        function verify(user_id) {
+        function verify(user_id, get_verified) {
             $.ajax({
                 method: 'GET',
                 url: 'REST_api/verify?user_id=' + user_id,
@@ -635,15 +635,17 @@
                 processData: false,
                 contentType: 'application/json',
                 success: function (r) {
+                    console.log('inside verify');
 
-                    if (r == "not verifed") {
+
+                    if (r == "not verified") {
 
                         $('#request_sent').html('<span>A verification email has been sent to the email address you provided. Please verify your account within 5 minutes.</span><br> <span id = "timer"></span>');
 
-                        var minutes = 4, seconds = 60;
+                        var minutes = 0, seconds = 60;
 
                         //for the countdown
-                        timer = setInterval(function () {
+                        var timer = setInterval(function () {
 
                             seconds--;
 
@@ -651,11 +653,6 @@
                                 $('#timer').html('' + minutes + ' : 0' + seconds + '');
                             } else {
                                 $('#timer').html('' + minutes + ' : ' + seconds + '');
-                            }
-
-                            if (seconds == 00) {
-                                minutes--;
-                                seconds = 60;
                             }
 
                             if (minutes == 00) {
@@ -673,6 +670,11 @@
 
                                     $('#request_sent').html('<span><button class="btn-success" id="resend_email">Resend Email</button></span> <span><button class = "btn-danger" id = "cancel_request">Cancel</button></span>');
                                 }
+                            }
+
+                            if (seconds == 00) {
+                                minutes--;
+                                seconds = 60;
                             }
 
                         }, 1000);
@@ -703,6 +705,11 @@
 
         $('.form-group').change(function () {
             $('.update_response').text('');
+        })
+
+        //this guy displays the tooltips
+        $(function () {
+            $("[data-toggle = 'tooltip']").tooltip();
         })
 
     </script>
